@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,9 +60,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'forge'),
-            'username'  => env('DB_USERNAME', 'forge'),
-            'password'  => env('DB_PASSWORD', ''),
+            'database'  => env('DB_DATABASE', 'linker'),
+            'username'  => env('DB_USERNAME', 'links123_public'),
+            'password'  => env('DB_PASSWORD', 'links123_public'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => env('DB_PREFIX', ''),
@@ -70,34 +70,15 @@ return [
             'strict'    => false,
         ],
 
-        'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => env('DB_PREFIX', ''),
-            'schema'   => 'public',
-        ],
-
-        'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'prefix'   => env('DB_PREFIX', ''),
-        ],
         'mongodb' => array(
             'driver'   => 'mongodb',
             'host'     => env('MONGO_HOST', 'localhost'),
             'port'     => env('MONGO_PORT', '27017'),
-            'username' => env('MONGO_USERNAME', 'forge'),
-            'password' => env('MONGO_PASSWORD', ''),
-            'database' => env('MONGO_DATABASE', 'forge'),
+            'username' => env('MONGO_USERNAME', 'links123_public'),
+            'password' => env('MONGO_PASSWORD', 'links123_public'),
+            'database' => env('MONGO_DATABASE', 'linker'),
             'options' => array(
-                'db' => env('MONGO_AUTH_DATABASE', 'admin'), // sets the authentication database required by mongo 3
+                'db' => env('MONGO_AUTH_DATABASE', 'linker'), // sets the authentication database required by mongo 3
             )
         ),
 
