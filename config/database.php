@@ -89,6 +89,17 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'prefix'   => env('DB_PREFIX', ''),
         ],
+        'mongodb' => array(
+            'driver'   => 'mongodb',
+            'host'     => env('MONGO_HOST', 'localhost'),
+            'port'     => env('MONGO_PORT', '27017'),
+            'username' => env('MONGO_USERNAME', 'forge'),
+            'password' => env('MONGO_PASSWORD', ''),
+            'database' => env('MONGO_DATABASE', 'forge'),
+            'options' => array(
+                'db' => env('MONGO_AUTH_DATABASE', 'admin'), // sets the authentication database required by mongo 3
+            )
+        ),
 
     ],
 
