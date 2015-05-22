@@ -12,5 +12,6 @@ class PostModel extends Mongodb
         if(is_null($this->collection)) {
             $this->collection = parent::$db->selectCollection('post');
         }
+        return $this->collection;
     }
 }
