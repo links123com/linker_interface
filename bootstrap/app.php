@@ -75,7 +75,6 @@ $app->singleton(
 */
 
 $app->register('App\Providers\UserServiceProvider');
-$app->register('Jenssegers\Mongodb\MongodbServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
