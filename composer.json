@@ -7,7 +7,6 @@
     "require": {
         "laravel/lumen-framework": "5.0.*",
         "vlucas/phpdotenv": "~1.0",
-        "jenssegers/mongodb": "^2.1",
         "illuminate/redis": "^5.0"
     },
     "require-dev": {
