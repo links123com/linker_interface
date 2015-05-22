@@ -1,8 +1,9 @@
 <?php namespace App\Providers;
 
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class UserServiceProvider extends ServiceProvider
 {
 
     /**
@@ -12,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('App\Services\UserService',function(){
+            return new UserService();
+        });
     }
 }
