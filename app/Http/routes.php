@@ -11,6 +11,14 @@
 |
 */
 
-$app->get('/', function() use ($app) {
-    return $app->welcome();
+$app->group(['namespace'=>'App\Http\Controllers'], function($app) {
+    $app->post('/post', 'PostController@create');
+    $app->post('/laud', 'PostController@laud');
+    $app->post('/comment', 'CommentController@create');
+    $app->post('/reply', 'CommentController@reply');
+
+    $app->delete('/post/', 'PostController@delete');
+    $app->delete('/laud/', 'PostController@deleteLaud');
+    $app->delete('/comment', 'CommentController@delete');
+    $app->delete('/reply', 'CommentController@deleteReply');
 });

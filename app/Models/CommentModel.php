@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Log;
 
-class PostModel extends Mongodb
+class CommentModel extends Mongodb
 {
-    private $c = 'post';
-    private $schema = array('user_id', 'title', 'content',
-        'position', 'type', 'device', 'notify', 'images', 'video',
-        'audio', 'status', 'laud', 'comment'
-    );
+    private $c = 'comment';
+    private $schema = array('user_id', 'post_id', 'content', 'status', 'reply', 'create_at', 'update_at');
+    private $replySchema = array('rid', 'user_id', 'to', 'status', 'content','create_at', 'update_at');
 
     public function __construct()
     {
@@ -18,17 +16,19 @@ class PostModel extends Mongodb
     }
 
     /**
-     * 对另客圈状态点赞
+     * 对另客圈状态进行评论
      *
      * @param $id string 另客圈状态id
-     * @param $userId integer 点赞的用户id
-     * @return bool 点赞失败返回false
+     * @param $data array 评论对象的字段内容
+     * @return bool 评论失败返回false
      */
-    public function createLaud($id, $userId)
+    public function createReply($id, $data)
     {
         $collection = $this->collection;
         $where = array('_id'=>new \MongoId($id));
-        $param = array('$addToSet'=>array('laud'=>$userId));
+        $data['create_at'] = time();
+        $data['status'] = 1;
+        $param = array('$addToSet'=>array('reply'=>$this->filterField($this->replySchema, $data)));
 
         try {
             $result = $collection->update($where, $param);
@@ -40,17 +40,17 @@ class PostModel extends Mongodb
     }
 
     /**
-     * 删除用户对另客圈状态的赞
+     * 删除用户对另客圈状态的评论
      *
      * @param $id string 另客圈状态id
-     * @param $userId integer 用户id
+     * @param $rid string 另客圈评论回复id
      * @return bool 如果删除失败返回false，否则返回mongodb操作结果
      */
-    public function deleteLaud($id,$userId)
+    public function deleteReply($id, $rid)
     {
         $collection = $this->collection;
-        $where = array('_id'=>new \MongoId($id));
-        $param = array('$pull'=>array('laud'=>$userId));
+        $where = array('reply.rid'=>$rid, '_id'=> new \MongoId($id));
+        $param = array('$set'=>array('reply.$.status'=> 0));
 
         try {
             $result = $collection->update($where, $param);
