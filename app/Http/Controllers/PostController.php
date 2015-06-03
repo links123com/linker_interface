@@ -2,6 +2,7 @@
 
 use App\Logic\Forms\LaudForm;
 use App\Logic\Forms\PostDeletionForm;
+use App\Logic\Friend\FriendLogic;
 use App\Models\PostModel;
 use App\Models\TimelineModel;
 use Illuminate\Http\Request;
@@ -27,11 +28,24 @@ class PostController extends Controller
             switch($postData['visibility']) {
                 case 1 :
                     // 所有人都可见
+                    $friends = FriendLogic::read([
+                        'user_id'      =>$postData['user_id'],
+                        'is_friend'    => 1,
+                        'is_disable'   => 0,
+                        'allow_linker' =>1
+                    ]);
+
+                    foreach($friends as $friend) {
+                        $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0];
+                    }
+
+                    $timelineModel = new TimelineModel();
+                    $timelineModel->batchInsert($data);
                     break;
                 case 2 :
                     // 仅自己可见
                     $timelineModel = new TimelineModel();
-                    $timelineModel->batchInsert(
+                    $timelineModel->insert(
                         [
                             'user_id'=>$postData['user_id'],
                             'post_id'=>$result,
@@ -50,6 +64,22 @@ class PostController extends Controller
                     break;
                 case 4 :
                     // 谁不可以看
+                    $who_can_not = $postData['who_can_not'];
+                    $friends = FriendLogic::read([
+                        'user_id'      =>$postData['user_id'],
+                        'is_friend'    => 1,
+                        'is_disable'   => 0,
+                        'allow_linker' =>1
+                    ]);
+
+                    foreach($friends as $friend) {
+                        if(!in_array($friend['friend_id'], $who_can_not)) {
+                            $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0];
+                        }
+                    }
+
+                    $timelineModel = new TimelineModel();
+                    $timelineModel->batchInsert($data);
                     break;
                 case 5 :
                     // 提醒别人看
@@ -62,7 +92,6 @@ class PostController extends Controller
                     break;
                 default :
             }
-            exit;
             return response()->json($result, 201);
         }
 

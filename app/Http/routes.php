@@ -21,4 +21,13 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
     $app->delete('/laud/', 'PostController@deleteLaud');
     $app->delete('/comment', 'CommentController@delete');
     $app->delete('/reply', 'CommentController@deleteReply');
+
+    $app->get('timeline/{id}', 'Timeline@showPost');
+    $app->get('timeline/{id}/alumnus', '');
+
+    $app->post('friend', 'FriendController@create');
+    $app->patch('friend/{id}', 'FriendController@update');
+    $app->delete('friend/{id}', 'FriendController@delete');
+
+    $app->get('user/{id}/friend', 'FriendController@read');
 });

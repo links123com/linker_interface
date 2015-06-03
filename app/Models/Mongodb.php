@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Log;
 
 class Mongodb
 {
-    private   $schema = array();
-    protected $db = null;
-    protected $collection = null;
+    private $schema = array();
+    public  $db = null;
+    public  $collection = null;
 
     public function __construct($collection, $schema=array())
     {
@@ -52,6 +52,17 @@ class Mongodb
 
         try {
             $result = $this->collection->update($criteria, ['$set'=>$fields], $options);
+            return $result;
+        } catch(\MongoCursorException $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function delete($criteria, $option=array())
+    {
+        try {
+            $result = $this->collection->remove($criteria, $option);
             return $result;
         } catch(\MongoCursorException $e) {
             Log::error($e->getMessage());
