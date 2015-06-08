@@ -15,4 +15,17 @@ class ComplaintController extends Controller
 
         return response()->json(array('message'=>'Server internal error'), 500);
     }
+
+    public function update($id, Request $request)
+    {
+        $postData = $request->all();
+        $postData['_id'] = $id;
+        $result = ComplaintLogic::update($postData);
+
+        if($request) {
+            return response()->json($result, 201);
+        }
+
+        return response()->json(array('message'=>'Server internal error'), 500);
+    }
 }

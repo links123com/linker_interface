@@ -34,4 +34,5 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
     $app->get('timeline/{id}', 'TimelineController@read');
 
     $app->post('/complaint', 'ComplaintController@create');
+    $app->patch('/complaint/{id}', 'ComplaintController@create');
 });

@@ -10,4 +10,12 @@ class ComplaintLogic
         $complaintModel = new ComplaintModel();
         return $complaintModel->insert($validatedData);
     }
+
+    public static function update(array $data)
+    {
+        $validatedData = UpdateForm::validate($data);
+        $id = new \MongoId($data['_id']);
+        $complaintModel = new ComplaintModel();
+        return $complaintModel->update(['_id' => $id], $validatedData);
+    }
 }
