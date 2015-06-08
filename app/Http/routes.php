@@ -32,4 +32,6 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
     $app->get('user/{id}/friend', 'FriendController@read');
 
     $app->get('timeline/{id}', 'TimelineController@read');
+
+    $app->post('/complaint', 'ComplaintController@create');
 });
