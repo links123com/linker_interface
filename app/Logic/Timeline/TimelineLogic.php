@@ -13,7 +13,7 @@ class TimelineLogic
         $postModel     = new PostModel();
         $commentModel  = new CommentModel();
         $validatedData = ReadForm::validate($where);
-        $cursor = $timelineModel->collection->find($validatedData);
+        $cursor = $timelineModel->collection->find($validatedData)->sort(['create_at'=> -1 ]);
 
         if(!empty($cursor)) {
             foreach($cursor as $key => $document) {
@@ -27,6 +27,7 @@ class TimelineLogic
             }
         }
 
+        // 更新好友状态的最后拉取时间
         return $timeline;
     }
 }

@@ -36,7 +36,7 @@ class PostController extends Controller
                     ]);
 
                     foreach($friends as $friend) {
-                        $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0];
+                        $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
 
                     $timelineModel = new TimelineModel();
@@ -50,14 +50,15 @@ class PostController extends Controller
                             'user_id'=>$postData['user_id'],
                             'post_id'=>$result,
                             'status'=>0,
-                            'is_at'=>0
+                            'is_at'=>0,
+                            'create_at'=>time()
                         ]);
                     break;
                 case 3 :
                     // 谁可以看
                     $whoCan = $postData['who_can'];
                     foreach($whoCan as $key => $value) {
-                        $data[] = ['user_id' => $value, 'post_id' => $result, 'status'=>0, 'is_at'=>0];
+                        $data[] = ['user_id' => $value, 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
                     $timelineModel = new TimelineModel();
                     $timelineModel->batchInsert($data);
@@ -74,7 +75,7 @@ class PostController extends Controller
 
                     foreach($friends as $friend) {
                         if(!in_array($friend['friend_id'], $who_can_not)) {
-                            $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0];
+                            $data[] = ['user_id' => $friend['friend_id'], 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                         }
                     }
 
@@ -85,7 +86,7 @@ class PostController extends Controller
                     // 提醒别人看
                     $mention = $postData['mention'];
                     foreach($mention as $key => $value) {
-                        $data[] = ['user_id' => $value, 'post_id' => $result, 'status'=>0, 'is_at'=>1];
+                        $data[] = ['user_id' => $value, 'post_id' => $result, 'status'=>0, 'is_at'=>1, 'create_at'=>time()];
                     }
                     $timelineModel = new TimelineModel();
                     $timelineModel->batchInsert($data);
