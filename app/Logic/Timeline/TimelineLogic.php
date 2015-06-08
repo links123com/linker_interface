@@ -19,7 +19,7 @@ class TimelineLogic
             foreach($cursor as $key => $document) {
                 $postId = new \MongoId($document['post_id']);
                 $document['post'] = $postModel->collection->findOne(['_id' => $postId]);
-                $comment = $commentModel->collection->find(['post_id'=>$document['post_id']]);
+                $comment = $commentModel->collection->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
                 $document['post']['comment'] = iterator_to_array($comment);
                 unset($document['post_id']);
                 unset($document['post']['user_id']);
