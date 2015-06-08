@@ -27,7 +27,6 @@ class TimelineLogic
             }
         }
 
-        // 更新好友状态的最后拉取时间
         return $timeline;
     }
 }
