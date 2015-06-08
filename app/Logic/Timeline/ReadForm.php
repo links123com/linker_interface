@@ -8,7 +8,8 @@ class ReadForm extends Validator
     {
         $validator = Validator::make($data, [
             'user_id'         => 'required|integer|min:1',
-            'last_pull'       => 'integer|min:1431705600'
+            'last_pull'       => 'integer|min:1431705600',
+            'page'            => 'required|integer|min:1'
         ]);
 
         if($validator->fails()) {
