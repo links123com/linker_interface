@@ -30,4 +30,6 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
     $app->delete('friend/{id}', 'FriendController@delete');
 
     $app->get('user/{id}/friend', 'FriendController@read');
+
+    $app->get('timeline/{id}', 'TimelineController@read');
 });
