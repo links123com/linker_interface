@@ -7,7 +7,8 @@ class ReadForm extends Validator
     public static function validate($data)
     {
         $validator = Validator::make($data, [
-            'user_id'         => 'required|integer|min:1'
+            'user_id'         => 'required|integer|min:1',
+            'last_pull'       => 'integer|min:1431705600'
         ]);
 
         if($validator->fails()) {
@@ -20,10 +21,10 @@ class ReadForm extends Validator
 
     private static function cookData($data)
     {
-        $temp = ['user_id' => $data['user_id']];
+        $temp = ['user_id' => intval($data['user_id'])];
 
-        if(isset($data['allow_linker'])) {
-            $temp['allow_linker'] = intval($data['allow_linker']);
+        if(isset($data['last_pull'])) {
+            $temp['create_at'] = array('$gte' => intval($data['last_pull']));
         }
 
         return $temp;
