@@ -141,16 +141,18 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function deleteLaud(Request $request, LaudForm $laudForm)
+    public function deleteLaud($id, $userId, LaudForm $laudForm)
     {
-        $postData = $laudForm->validate($request->all());
+        $data['id'] = $id;
+        $data['user_id'] = $userId;
+        $postData = $laudForm->validate($data);
         $id     = $postData['id'];
         $userId = $postData['user_id'];
 
         $postModel = $this->postModel;
         $result = $postModel->deleteLaud($id, $userId);
 
-        if($request) {
+        if($result) {
             return response()->json($result, 200);
         }
 
