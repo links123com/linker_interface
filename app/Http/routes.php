@@ -22,17 +22,21 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
     $app->delete('/comment', 'CommentController@delete');
     $app->delete('/reply', 'CommentController@deleteReply');
 
-    $app->get('timeline/{id}', 'Timeline@showPost');
-    $app->get('timeline/{id}/alumnus', '');
-
-    $app->post('friend', 'FriendController@create');
-    $app->patch('friend/{id}', 'FriendController@update');
-    $app->delete('friend/{id}', 'FriendController@delete');
-
-    $app->get('user/{id}/friend', 'FriendController@read');
-
-    $app->get('timeline/{id}', 'TimelineController@read');
-
-    $app->post('/complaint', 'ComplaintController@create');
-    $app->patch('/complaint/{id}', 'ComplaintController@create');
 });
+
+// 发布另客圈状态、赞、评论
+$app->post('/post', 'App\Http\Controllers\FriendController\PostController@create');
+
+// 好友接口
+$app->post('friend', 'App\Http\Controllers\FriendController@create');
+$app->patch('friend/{id}', 'App\Http\Controllers\FriendController@update');
+$app->delete('friend/{id}', 'App\Http\Controllers\FriendController@delete');
+$app->get('user/{id}/friend', 'App\Http\Controllers\FriendController@read');
+
+// 读取用户关注的和校友的另客圈状态
+$app->get('timeline/{id}', 'App\Http\Controllers\TimelineController@read');
+$app->get('timeline/{id}/alumnus', 'App\Http\Controllers\TimelineController@read');
+
+// 举报接口
+$app->post('/complaint', 'App\Http\Controllers\ComplaintController@create');
+$app->patch('/complaint/{id}', 'App\Http\Controllers\ComplaintController@create');
