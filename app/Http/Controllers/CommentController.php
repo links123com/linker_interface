@@ -29,9 +29,11 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function delete(Request $request, CommentDeletionForm $commentDeletionForm)
+    public function delete($id, Request $request, CommentDeletionForm $commentDeletionForm)
     {
-        $postData = $commentDeletionForm->validate($request->all());
+        $data = $request->all();
+        $data['id'] = $id;
+        $postData = $commentDeletionForm->validate($data);
         $id = new \MongoId($postData['id']);
         $model = $this->model;
         $result = $model->update(array('_id'=>$id), array('status'=>0));

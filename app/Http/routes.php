@@ -1,31 +1,20 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-$app->group(['namespace'=>'App\Http\Controllers'], function($app) {
-    $app->post('/comment', 'CommentController@create');
-    $app->post('/reply', 'CommentController@reply');
-
-
-    $app->delete('/comment', 'CommentController@delete');
-    $app->delete('/reply', 'CommentController@deleteReply');
-
-});
-
-// 发布另客圈状态、赞、评论
+// 发布另客圈状态
 $app->post('/post', 'App\Http\Controllers\PostController@create');
 $app->delete('/post/{id}', 'App\Http\Controllers\PostController@delete');
+
+// 赞接口
 $app->post('/post/{id}/laud', 'App\Http\Controllers\PostController@laud');
 $app->delete('/post/{id}/laud/{userId}', 'App\Http\Controllers\PostController@deleteLaud');
+
+// 发表评论
+$app->post('/comment', 'App\Http\Controllers\CommentController@create');
+$app->delete('/comment/{id}', 'App\Http\Controllers\CommentController@delete');
+
+// 回复评论
+$app->post('/reply', 'App\Http\Controllers\CommentController@reply');
+$app->delete('/reply', 'App\Http\Controllers\CommentController@deleteReply');
 
 // 好友接口
 $app->post('friend', 'App\Http\Controllers\FriendController@create');
