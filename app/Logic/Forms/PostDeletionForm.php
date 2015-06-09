@@ -13,12 +13,5 @@ class PostDeletionForm extends Validator
             response()->json($validator->messages(), 422)->send();
             exit();
         }
-        return $this->switchType($data);
-    }
-
-    private function switchType($data)
-    {
-        $data['id'] = strval($data['id']);
-        return $data;
     }
 }

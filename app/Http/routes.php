@@ -12,12 +12,10 @@
 */
 
 $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
-    $app->post('/post', 'PostController@create');
     $app->post('/laud', 'PostController@laud');
     $app->post('/comment', 'CommentController@create');
     $app->post('/reply', 'CommentController@reply');
 
-    $app->delete('/post/', 'PostController@delete');
     $app->delete('/laud/', 'PostController@deleteLaud');
     $app->delete('/comment', 'CommentController@delete');
     $app->delete('/reply', 'CommentController@deleteReply');
@@ -26,6 +24,7 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
 
 // 发布另客圈状态、赞、评论
 $app->post('/post', 'App\Http\Controllers\PostController@create');
+$app->delete('/post/{id}', 'App\Http\Controllers\PostController@delete');
 
 // 好友接口
 $app->post('friend', 'App\Http\Controllers\FriendController@create');

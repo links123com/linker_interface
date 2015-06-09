@@ -107,10 +107,12 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function delete(Request $request, PostDeletionForm $postDeletionForm)
+    public function delete($id, Request $request, PostDeletionForm $postDeletionForm)
     {
-        $postData = $postDeletionForm->validate($request->all());
-        $id = new \MongoId($postData['id']);
+        $data = $request->all();
+        $data['id'] = $id;
+        $postDeletionForm->validate($data);
+        $id = new \MongoId($data['id']);
         $postModel = $this->postModel;
         $result = $postModel->update(array('_id'=>$id), array('status'=>0));
 
