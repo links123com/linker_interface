@@ -123,9 +123,11 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function laud(Request $request, LaudForm $laudForm)
+    public function laud($id, Request $request, LaudForm $laudForm)
     {
-        $postData = $laudForm->validate($request->all());
+        $data = $request->all();
+        $data['id'] = $id;
+        $postData = $laudForm->validate($data);
         $id     = $postData['id'];
         $userId = $postData['user_id'];
 
@@ -133,7 +135,7 @@ class PostController extends Controller
         $result = $postModel->createLaud($id,$userId);
 
         if($result) {
-            return response()->json($result, 200);
+            return response()->json($result, 201);
         }
 
         return response()->json(array('message'=>'Server internal error'), 500);
