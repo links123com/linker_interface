@@ -7,7 +7,7 @@ class PostCreationForm extends Validator
     public function validate($data)
     {
         $validator = Validator::make($data, [
-            'user_id'    =>'required|integer',
+            'user_id'    =>'required|integer|min:1',
             'title'      =>'required_if:type,6',
             'content'    =>'required_without_all:images,video,audio|string',
             'position'   =>'required|string',
