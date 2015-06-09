@@ -39,8 +39,10 @@ class PostController extends Controller
                         $data[] = ['user_id' => intval($friend['friend_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
 
-                    $timelineModel = new TimelineModel();
-                    $timelineModel->batchInsert($data);
+                    if(!empty($data)) {
+                        $timelineModel = new TimelineModel();
+                        $timelineModel->batchInsert($data);
+                    }
                     break;
                 case 2 :
                     // 仅自己可见
@@ -60,8 +62,10 @@ class PostController extends Controller
                     foreach($whoCan as $key => $value) {
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
-                    $timelineModel = new TimelineModel();
-                    $timelineModel->batchInsert($data);
+                    if(!empty($data)) {
+                        $timelineModel = new TimelineModel();
+                        $timelineModel->batchInsert($data);
+                    }
                     break;
                 case 4 :
                     // 谁不可以看
@@ -79,8 +83,10 @@ class PostController extends Controller
                         }
                     }
 
-                    $timelineModel = new TimelineModel();
-                    $timelineModel->batchInsert($data);
+                    if(!empty($data)) {
+                        $timelineModel = new TimelineModel();
+                        $timelineModel->batchInsert($data);
+                    }
                     break;
                 case 5 :
                     // 提醒别人看
@@ -88,8 +94,10 @@ class PostController extends Controller
                     foreach($mention as $key => $value) {
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>1, 'create_at'=>time()];
                     }
-                    $timelineModel = new TimelineModel();
-                    $timelineModel->batchInsert($data);
+                    if(!empty($data)) {
+                        $timelineModel = new TimelineModel();
+                        $timelineModel->batchInsert($data);
+                    }
                     break;
                 default :
             }

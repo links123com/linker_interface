@@ -25,7 +25,7 @@ $app->group(['namespace'=>'App\Http\Controllers'], function($app) {
 });
 
 // 发布另客圈状态、赞、评论
-$app->post('/post', 'App\Http\Controllers\FriendController\PostController@create');
+$app->post('/post', 'App\Http\Controllers\PostController@create');
 
 // 好友接口
 $app->post('friend', 'App\Http\Controllers\FriendController@create');
