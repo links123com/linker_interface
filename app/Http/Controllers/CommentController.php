@@ -62,9 +62,11 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function deleteReply(Request $request, ReplyDeletionForm $replyDeletionForm)
+    public function deleteReply($id, $rid, Request $request, ReplyDeletionForm $replyDeletionForm)
     {
-        $postData = $replyDeletionForm->validate($request->all());
+        $data['id']  = $id;
+        $data['rid'] = $rid;
+        $postData = $replyDeletionForm->validate($data);
 
         $model = $this->model;
         $result = $model->deleteReply($postData['id'], $postData['rid']);
