@@ -45,9 +45,11 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function reply(Request $request, ReplyCreationForm $replyCreationForm)
+    public function reply($id, Request $request, ReplyCreationForm $replyCreationForm)
     {
-        $postData = $replyCreationForm->validate($request->all());
+        $data = $request->all();
+        $data['id'] = $id;
+        $postData = $replyCreationForm->validate($data);
         $id     = $postData['id'];
 
         $model = $this->model;

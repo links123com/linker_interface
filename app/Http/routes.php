@@ -13,7 +13,7 @@ $app->post('/comment', 'App\Http\Controllers\CommentController@create');
 $app->delete('/comment/{id}', 'App\Http\Controllers\CommentController@delete');
 
 // 回复评论
-$app->post('/reply', 'App\Http\Controllers\CommentController@reply');
+$app->post('/comment/{id}/reply', 'App\Http\Controllers\CommentController@reply');
 $app->delete('/reply', 'App\Http\Controllers\CommentController@deleteReply');
 
 // 好友接口
