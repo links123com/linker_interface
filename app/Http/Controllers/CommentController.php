@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Logic\Forms\CommentCreationForm;
-use App\Logic\Forms\CommentDeletionForm;
+use App\Logic\Comment\CommentLogic;
+use App\Logic\Comment\ReplyLogic;
 use App\Logic\Forms\ReplyCreationForm;
 use App\Logic\Forms\ReplyDeletionForm;
 use App\Models\CommentModel;
@@ -16,11 +16,9 @@ class CommentController extends Controller
         $this->model = new CommentModel();
     }
 
-    public function create(Request $request, CommentCreationForm $commentCreationForm)
+    public function create(Request $request)
     {
-        $postData = $commentCreationForm->validate($request->all());
-        $model = $this->model;
-        $result = $model->insert($postData);
+        $result = CommentLogic::create($request->all());
 
         if($result) {
             return response()->json($result, 201);
@@ -29,14 +27,10 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function delete($id, Request $request, CommentDeletionForm $commentDeletionForm)
+    public function delete($id)
     {
-        $data = $request->all();
         $data['id'] = $id;
-        $postData = $commentDeletionForm->validate($data);
-        $id = new \MongoId($postData['id']);
-        $model = $this->model;
-        $result = $model->update(array('_id'=>$id), array('status'=>0));
+        $result = CommentLogic::delete($data);
 
         if($result) {
             return response()->json($result, 200);
@@ -45,15 +39,11 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function reply($id, Request $request, ReplyCreationForm $replyCreationForm)
+    public function reply($id, Request $request)
     {
         $data = $request->all();
         $data['id'] = $id;
-        $postData = $replyCreationForm->validate($data);
-        $id     = $postData['id'];
-
-        $model = $this->model;
-        $result = $model->createReply($id, $postData);
+        $result = ReplyLogic::create($data);
 
         if($result) {
             return response()->json($result, 200);
@@ -62,16 +52,12 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function deleteReply($id, $rid, Request $request, ReplyDeletionForm $replyDeletionForm)
+    public function deleteReply($id, $rid)
     {
-        $data['id']  = $id;
-        $data['rid'] = $rid;
-        $postData = $replyDeletionForm->validate($data);
+        $data = ['id' => $id, 'rid' => $rid];
+        $result = ReplyLogic::delete($data);
 
-        $model = $this->model;
-        $result = $model->deleteReply($postData['id'], $postData['rid']);
-
-        if($request) {
+        if($result) {
             return response()->json($result, 200);
         }
 

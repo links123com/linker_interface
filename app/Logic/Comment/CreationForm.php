@@ -1,26 +1,25 @@
-<?php namespace App\Logic\Forms;
+<?php namespace App\Logic\Comment;
 
 use Illuminate\Support\Facades\Validator;
 
-class CommentCreationForm extends Validator
+class CreationForm extends Validator
 {
-    public function validate($data)
+    public static function validate($data)
     {
         $validator = Validator::make($data, [
             'user_id'  =>'required|integer|min:1',
-            'post_id'    =>'required|string|size:24',
+            'post_id'  =>'required|string|size:24',
             'content'  =>'required|string',
-            'status'   =>'required|boolean',
-            'reply'  =>'array'
+            'status'   =>'required|boolean'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();
             exit();
         }
-        return $this->switchType($data);
+        return self::switchType($data);
     }
 
-    private function switchType($data)
+    private static function switchType($data)
     {
         $data['user_id'] = intval($data['user_id']);
         $data['post_id'] = strval($data['post_id']);

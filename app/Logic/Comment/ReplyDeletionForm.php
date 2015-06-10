@@ -1,10 +1,10 @@
-<?php namespace App\Logic\Forms;
+<?php namespace App\Logic\Comment;
 
 use Illuminate\Support\Facades\Validator;
 
 class ReplyDeletionForm extends Validator
 {
-    public function validate($data)
+    public static function validate($data)
     {
         $validator = Validator::make($data, [
             'id' => 'required|string|size:24',
@@ -15,14 +15,6 @@ class ReplyDeletionForm extends Validator
             response()->json($validator->messages(), 422)->send();
             exit();
         }
-
-        return $this->switchType($data);
-    }
-
-    private function switchType($data)
-    {
-        $data['id']    = strval($data['id']);
-        $data['rid']   = strval($data['rid']);
 
         return $data;
     }

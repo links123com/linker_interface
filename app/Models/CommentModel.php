@@ -2,62 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Log;
-
 class CommentModel extends Mongodb
 {
     private $c = 'comment';
-    private $schema = array('user_id', 'post_id', 'content', 'status', 'reply', 'create_at', 'update_at');
-    private $replySchema = array('rid', 'user_id', 'to', 'status', 'content','create_at', 'update_at');
+    private $schema = array(
+        'user_id',         // 用户id|required|integer|min:1
+        'post_id',         // 另客圈状态id|required|string|size:24
+        'content',         // 评论内容|required|string
+        'status',          // 评论是否删除|required|boolean
+        'reply'=>array(    // 回复|array
+            'rid',         // 回复id(md5(user_id.to.content))|required|string|size:32
+            'user_id',     // 发表回复的用户id|required|integer|min:1
+            'to',          // 接收回复的用户|required|integer|min:1
+            'status',      // 回复是否删除required|boolean
+            'content',     // 回复内容|required|string
+            'create_at',   // 回复发布时间|required|integer
+            'update_at'    // 回复状态更新时间|integer
+        ),
+        'create_at',       // 评论发布时间|required|integer
+        'update_at'        // 评论状态更新时间|integer
+    );
 
     public function __construct()
     {
         parent::__construct($this->c, $this->schema);
-    }
-
-    /**
-     * 对另客圈状态进行评论
-     *
-     * @param $id string 另客圈状态id
-     * @param $data array 评论对象的字段内容
-     * @return bool 评论失败返回false
-     */
-    public function createReply($id, $data)
-    {
-        $collection = $this->collection;
-        $where = array('_id'=>new \MongoId($id));
-        $data['create_at'] = time();
-        $data['status'] = 1;
-        $param = array('$addToSet'=>array('reply'=>$this->filterField($this->replySchema, $data)));
-
-        try {
-            $result = $collection->update($where, $param);
-            return $result;
-        } catch(\MongoCursorException $e) {
-            Log::error($e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * 删除用户对另客圈状态的评论
-     *
-     * @param $id string 另客圈状态id
-     * @param $rid string 另客圈评论回复id
-     * @return bool 如果删除失败返回false，否则返回mongodb操作结果
-     */
-    public function deleteReply($id, $rid)
-    {
-        $collection = $this->collection;
-        $where = array('reply.rid'=>$rid, '_id'=> new \MongoId($id));
-        $param = array('$set'=>array('reply.$.status'=> 0));
-
-        try {
-            $result = $collection->update($where, $param);
-            return $result;
-        } catch(\MongoCursorException $e) {
-            Log::error($e->getMessage());
-            return false;
-        }
     }
 }
