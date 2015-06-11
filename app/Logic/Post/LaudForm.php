@@ -1,10 +1,10 @@
-<?php namespace App\Logic\Forms;
+<?php namespace App\Logic\Post;
 
 use Illuminate\Support\Facades\Validator;
 
 class LaudForm extends Validator
 {
-    public function validate($data)
+    public static function validate($data)
     {
         $validator = Validator::make($data, [
             'id' => 'required|string|size:24',
@@ -15,10 +15,10 @@ class LaudForm extends Validator
             exit();
         }
 
-        return $this->switchType($data);
+        return self::switchType($data);
     }
 
-    private function switchType($data)
+    private static function switchType($data)
     {
         $data['user_id'] = intval($data['user_id']);
         $data['id']    = strval($data['id']);

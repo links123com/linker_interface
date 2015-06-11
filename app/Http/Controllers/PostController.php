@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use App\Logic\Forms\LaudForm;
 use App\Logic\Forms\PostDeletionForm;
 use App\Logic\Friend\FriendLogic;
+use App\Logic\Post\LaudLogic;
 use App\Models\PostModel;
 use App\Models\TimelineModel;
 use Illuminate\Http\Request;
@@ -118,17 +118,12 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function laud($id, Request $request, LaudForm $laudForm)
+    public function laud($id, Request $request)
     {
         $data = $request->all();
         $data['id'] = $id;
-        $postData = $laudForm->validate($data);
-        $id     = $postData['id'];
-        $userId = $postData['user_id'];
 
-        $postModel = $this->postModel;
-        $result = $postModel->createLaud($id,$userId);
-
+        $result = LaudLogic::create($data);
         if($result) {
             return response()->json($result, 201);
         }
@@ -136,16 +131,10 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function deleteLaud($id, $userId, LaudForm $laudForm)
+    public function deleteLaud($id, $userId)
     {
-        $data['id'] = $id;
-        $data['user_id'] = $userId;
-        $postData = $laudForm->validate($data);
-        $id     = $postData['id'];
-        $userId = $postData['user_id'];
-
-        $postModel = $this->postModel;
-        $result = $postModel->deleteLaud($id, $userId);
+        $data = ['id'=>$id, 'user_id'=>$userId];
+        $result = LaudLogic::delete($data);
 
         if($result) {
             return response()->json($result, 200);
