@@ -4,18 +4,10 @@ use App\Logic\Comment\CommentLogic;
 use App\Logic\Comment\ReplyLogic;
 use App\Logic\Forms\ReplyCreationForm;
 use App\Logic\Forms\ReplyDeletionForm;
-use App\Models\CommentModel;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    private $model = null;
-
-    public function __construct()
-    {
-        $this->model = new CommentModel();
-    }
-
     public function create(Request $request)
     {
         $result = CommentLogic::create($request->all());

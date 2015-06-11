@@ -8,7 +8,7 @@ class ReplyLogic
     public static function create($data)
     {
         $validatedData = ReplyCreationForm::validate($data);
-        $collection = (new CommentModel())->collection;
+        $collection = CommentModel::connection();
         $where = array('_id'=> new \MongoId($data['id']));
         $param = array('$addToSet'=>array('reply'=>$validatedData));
 
@@ -24,7 +24,7 @@ class ReplyLogic
     public static function delete($data)
     {
         $validatedData = ReplyDeletionForm::validate($data);
-        $collection = (new CommentModel())->collection;
+        $collection = CommentModel::connection();
         $where = array('reply.rid'=>$validatedData['rid'], '_id'=> new \MongoId($validatedData['id']));
         $param = array('$set'=>array('reply.$.status'=> 0));
 
