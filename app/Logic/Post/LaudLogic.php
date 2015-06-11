@@ -8,7 +8,7 @@ class LaudLogic
     public static function create($data)
     {
         $validatedData = LaudForm::validate($data);
-        $collection = (new PostModel())->collection;
+        $collection = PostModel::connection();
         $where = array('_id'=> new \MongoId($data['id']));
         $param = array('$addToSet'=>array('laud'=>$validatedData['user_id']));
 
@@ -24,7 +24,7 @@ class LaudLogic
     public static function delete($data)
     {
         $validatedData = LaudForm::validate($data);
-        $collection = (new PostModel())->collection;
+        $collection = PostModel::connection();
         $where = array('_id'=>new \MongoId($validatedData['id']));
         $param = array('$pull'=>array('laud'=>$validatedData['user_id']));
 

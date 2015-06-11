@@ -11,7 +11,7 @@ class MongoModel
 
     public static function connection()
     {
-        if(is_null(self::$collection))
+        if(is_null(self::$collection) || self::$collection->getName() != static::$collectionName)
         {
             $config = Config::get('database.connections.mongodb');
             $connectionString = 'mongodb://'.$config['username'].':'.$config['password'].'@'.$config['host'] . ":".$config['port'].'/'.$config['database'];

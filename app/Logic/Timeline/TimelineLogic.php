@@ -9,7 +9,6 @@ class TimelineLogic
     public static function read(array $where)
     {
         $timeline = [];
-        $postModel     = new PostModel();
         $validatedData = ReadForm::validate($where);
         $offset = 10;
         $skip = ($where['page'] -1) * $offset;
@@ -18,7 +17,7 @@ class TimelineLogic
         if(!empty($cursor)) {
             foreach($cursor as $key => $document) {
                 $postId = new \MongoId($document['post_id']);
-                $document['post'] = $postModel->collection->findOne(['_id' => $postId]);
+                $document['post'] = PostModel::connection()->findOne(['_id' => $postId]);
                 $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
                 $document['post']['comment'] = iterator_to_array($comment);
                 unset($document['post_id']);

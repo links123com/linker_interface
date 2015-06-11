@@ -17,7 +17,6 @@ class CreationForm extends Validator
             'images'     =>'required_if:type,1|array|max:9',
             'video'      =>'required_if:type,2|string',
             'audio'      =>'required_if:type,4|string',
-            'status'     =>'required|boolean',
             'laud'       =>'array',
             'comment'    =>'array',
             //1:所有人可见;2:仅自己;3:谁可以看;4:谁不可以看;5:提醒给谁看
@@ -39,7 +38,7 @@ class CreationForm extends Validator
     {
         $data['user_id'] = intval($data['user_id']);
         $data['type']    = intval($data['type']);
-        $data['status']  = intval($data['status']);
+        $data['status']  = 1;
 
         return $data;
     }

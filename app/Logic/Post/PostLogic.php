@@ -8,9 +8,8 @@ class PostLogic
 {
     public static function create($data)
     {
-        $model = new PostModel();
         $validatedData = CreationForm::validate($data);
-        $result = $model->insert($validatedData);
+        $result = PostModel::insert($validatedData);
 
         if($result) {
             // 根据客户端传递的参数确定post类型进行对应操作
@@ -83,7 +82,6 @@ class PostLogic
                         TimelineModel::batchInsert($data);
                     }
                     break;
-                default :
             }
         }
         return $result;
@@ -91,8 +89,6 @@ class PostLogic
 
     public static function delete($id)
     {
-        $postModel = new PostModel();
-
-        return $postModel->update(array('_id'=>new \MongoId($id)), array('status'=>0));
+        return PostModel::update(array('_id'=>new \MongoId($id)), array('status'=>0));
     }
 }
