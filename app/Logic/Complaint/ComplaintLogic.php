@@ -7,15 +7,14 @@ class ComplaintLogic
     public static function create(array $data)
     {
         $validatedData = CreationForm::validate($data);
-        $complaintModel = new ComplaintModel();
-        return $complaintModel->insert($validatedData);
+
+        return ComplaintModel::insert($validatedData);
     }
 
     public static function update(array $data)
     {
         $validatedData = UpdateForm::validate($data);
         $id = new \MongoId($data['_id']);
-        $complaintModel = new ComplaintModel();
-        return $complaintModel->update(['_id' => $id], $validatedData);
+        return ComplaintModel::update(['_id' => $id], $validatedData);
     }
 }
