@@ -4,8 +4,6 @@ use App\Models\FriendModel;
 
 class FriendLogic
 {
-    private static $friendModel = null;
-
     /**
      * 发送添加好友请求
      *
