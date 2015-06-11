@@ -24,7 +24,7 @@ class ReadForm extends Validator
 
     private static function cookData($data)
     {
-        $temp = [];
+        $temp = ['user_id' => intval($data['user_id'])];
 
         if(isset($data['allow_linker'])) {
             $temp['allow_linker'] = intval($data['allow_linker']);
