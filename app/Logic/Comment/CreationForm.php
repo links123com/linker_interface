@@ -9,8 +9,7 @@ class CreationForm extends Validator
         $validator = Validator::make($data, [
             'user_id'  =>'required|integer|min:1',
             'post_id'  =>'required|string|size:24',
-            'content'  =>'required|string',
-            'status'   =>'required|boolean'
+            'content'  =>'required|string'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();
@@ -23,7 +22,7 @@ class CreationForm extends Validator
     {
         $data['user_id'] = intval($data['user_id']);
         $data['post_id'] = strval($data['post_id']);
-        $data['status']  = intval($data['status']);
+        $data['status']  = 1;
         $data['content'] = htmlspecialchars($data['content']);
 
         return $data;
