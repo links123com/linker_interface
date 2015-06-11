@@ -28,7 +28,7 @@ class MongoModel
         $fields = self::filterField(static::$schema, $data);
 
         try {
-            self::$collection->insert($fields, $option);
+            self::connection()->insert($fields, $option);
             return $fields['_id'];
         } catch(\MongoException $e) {
             Log::error($e->getMessage());

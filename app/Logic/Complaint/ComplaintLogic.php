@@ -15,6 +15,7 @@ class ComplaintLogic
     {
         $validatedData = UpdateForm::validate($data);
         $id = new \MongoId($data['_id']);
+
         return ComplaintModel::update(['_id' => $id], $validatedData);
     }
 }
