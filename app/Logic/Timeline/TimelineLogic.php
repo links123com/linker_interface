@@ -9,13 +9,12 @@ class TimelineLogic
     public static function read(array $where)
     {
         $timeline = [];
-        $timelineModel = new TimelineModel();
         $postModel     = new PostModel();
         $commentModel  = new CommentModel();
         $validatedData = ReadForm::validate($where);
         $offset = 10;
         $skip = ($where['page'] -1) * $offset;
-        $cursor = $timelineModel->collection->find($validatedData)->sort(['create_at'=> -1 ])->skip($skip)->limit($offset);
+        $cursor = TimelineModel::connection()->find($validatedData)->sort(['create_at'=> -1 ])->skip($skip)->limit($offset);
 
         if(!empty($cursor)) {
             foreach($cursor as $key => $document) {

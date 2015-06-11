@@ -40,14 +40,12 @@ class PostController extends Controller
                     }
 
                     if(!empty($data)) {
-                        $timelineModel = new TimelineModel();
-                        $timelineModel->batchInsert($data);
+                        TimelineModel::batchInsert($data);
                     }
                     break;
                 case 2 :
                     // 仅自己可见
-                    $timelineModel = new TimelineModel();
-                    $timelineModel->insert(
+                    TimelineModel::insert(
                         [
                             'user_id'=>intval($postData['user_id']),
                             'post_id'=>$result,
@@ -63,8 +61,7 @@ class PostController extends Controller
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
                     if(!empty($data)) {
-                        $timelineModel = new TimelineModel();
-                        $timelineModel->batchInsert($data);
+                        TimelineModel::batchInsert($data);
                     }
                     break;
                 case 4 :
@@ -84,8 +81,7 @@ class PostController extends Controller
                     }
 
                     if(!empty($data)) {
-                        $timelineModel = new TimelineModel();
-                        $timelineModel->batchInsert($data);
+                        TimelineModel::batchInsert($data);
                     }
                     break;
                 case 5 :
@@ -95,8 +91,7 @@ class PostController extends Controller
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>1, 'create_at'=>time()];
                     }
                     if(!empty($data)) {
-                        $timelineModel = new TimelineModel();
-                        $timelineModel->batchInsert($data);
+                        TimelineModel::batchInsert($data);
                     }
                     break;
                 default :
