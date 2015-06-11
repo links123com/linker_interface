@@ -1,10 +1,11 @@
 <?php namespace App\Models;
 
 
-class FriendModel extends Mongodb
+class FriendModel extends MongoModel
 {
-    private $c = 'friend';
-    private $schema = array(
+    public static $collectionName = 'friend';
+
+    public static $schema = [
         'user_id',         // 用户id|required|integer|min:1
         'friend_id',       // 好友id|required|integer|min:1
         'allow_linker',    // 是否允许好友查看自己的另客圈|required|boolean
@@ -16,10 +17,5 @@ class FriendModel extends Mongodb
         'view_linker',     // 是否查看好友另客圈|required|boolean
         'create_at',       // 好友添加时间|required|integer|size:10
         'update_at'        // 好友信息更新时间|integer|size:10
-    );
-
-    public function __construct()
-    {
-        parent::__construct($this->c, $this->schema);
-    }
+    ];
 }

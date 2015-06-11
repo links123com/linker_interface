@@ -14,10 +14,9 @@ class FriendLogic
      */
     public static function create($data)
     {
-        self::$friendModel = new FriendModel();
         $validatedData = CreationForm::validate($data);
 
-        return self::$friendModel->collection->batchInsert($validatedData);
+        return FriendModel::batchInsert($validatedData);
     }
 
     /**
@@ -30,10 +29,9 @@ class FriendLogic
     public static function update($id, $data)
     {
         $id = new \MongoId($id);
-        self::$friendModel = new FriendModel();
         $validatedData = UpdateForm::validate($data);
 
-        return self::$friendModel->update(array('_id' => $id), $validatedData);
+        return FriendModel::update(array('_id' => $id), $validatedData);
     }
 
     /**
@@ -44,17 +42,15 @@ class FriendLogic
      */
     public static function delete($id)
     {
-        self::$friendModel = new FriendModel();
         $id = new \MongoId($id);
 
-        return self::$friendModel->delete(array('_id' => $id));
+        return FriendModel::delete(array('_id' => $id));
     }
 
     public static function read(array $where)
     {
-        self::$friendModel = new FriendModel();
         $validatedData = ReadForm::validate($where);
-        $cursor = self::$friendModel->collection->find($validatedData);
+        $cursor = FriendModel::connection()->find($validatedData);
 
         return iterator_to_array($cursor);
     }
