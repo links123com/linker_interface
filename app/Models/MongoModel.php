@@ -26,7 +26,6 @@ class MongoModel
     public static function insert($data, $option=array())
     {
         $fields = self::filterField(static::$schema, $data);
-        $fields['create_at'] = time();
 
         try {
             self::$collection->insert($fields, $option);
@@ -45,7 +44,6 @@ class MongoModel
     public static function update($criteria, $new_object, $options=array())
     {
         $fields = self::filterField(static::$schema, $new_object);
-        $fields['update_at'] = time();
 
         try {
             $result = self::connection()->update($criteria, ['$set'=>$fields], $options);
