@@ -23,6 +23,7 @@ class PostLogic
                         'allow_linker' =>1
                     ]);
 
+                    $data [] = ['user_id' => intval($validatedData['user_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     foreach($friends as $friend) {
                         $data[] = ['user_id' => intval($friend['friend_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
@@ -45,6 +46,8 @@ class PostLogic
                 case 3 :
                     // 谁可以看
                     $whoCan = $validatedData['who_can'];
+
+                    $data [] = ['user_id' => intval($validatedData['user_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     foreach($whoCan as $key => $value) {
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     }
@@ -62,6 +65,7 @@ class PostLogic
                         'allow_linker' =>1
                     ]);
 
+                    $data [] = ['user_id' => intval($validatedData['user_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     foreach($friends as $friend) {
                         if(!in_array($friend['friend_id'], $who_can_not)) {
                             $data[] = ['user_id' => intval($friend['friend_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
@@ -75,6 +79,8 @@ class PostLogic
                 case 5 :
                     // 提醒别人看
                     $mention = $validatedData['mention'];
+
+                    $data [] = ['user_id' => intval($validatedData['user_id']), 'post_id' => $result, 'status'=>0, 'is_at'=>0, 'create_at'=>time()];
                     foreach($mention as $key => $value) {
                         $data[] = ['user_id' => intval($value), 'post_id' => $result, 'status'=>0, 'is_at'=>1, 'create_at'=>time()];
                     }
