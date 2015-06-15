@@ -22,6 +22,9 @@ $app->patch('friend/{id}', 'App\Http\Controllers\FriendController@update');
 $app->delete('friend/{id}', 'App\Http\Controllers\FriendController@delete');
 $app->get('user/{id}/friend', 'App\Http\Controllers\FriendController@read');
 
+// 转发接口
+$app->post('forward', 'App\Http\Controllers\ForwardController@create');
+
 // 读取用户关注的和校友的另客圈状态
 $app->get('timeline/{id}', 'App\Http\Controllers\TimelineController@read');
 $app->get('timeline/{id}/alumnus', 'App\Http\Controllers\TimelineController@read');
