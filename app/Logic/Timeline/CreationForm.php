@@ -1,4 +1,4 @@
-<?php namespace App\Logic\Forms;
+<?php namespace App\Logic\Timeline;
 
 use Illuminate\Support\Facades\Validator;
 
