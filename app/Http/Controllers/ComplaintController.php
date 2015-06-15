@@ -5,12 +5,12 @@ use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
 {
-    public function create(Request $request)
+    public function create()
     {
         $data = json_decode(file_get_contents("php://input"),true);
         $result = ComplaintLogic::create($data);
 
-        if($request) {
+        if($result) {
             return response()->json($result, 201);
         }
 

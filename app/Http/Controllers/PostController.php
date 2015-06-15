@@ -1,9 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-
 use App\Logic\Post\LaudLogic;
 use App\Logic\Post\PostLogic;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
