@@ -43,7 +43,5 @@ class CreationForm extends Validator
                 'create_at'      =>time()
             )
         );
-
-        return $temp;
     }
 }
