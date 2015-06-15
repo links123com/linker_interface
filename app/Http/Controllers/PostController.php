@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function create(Request $request)
+    public function create()
     {
-        $result = PostLogic::create($request->all());
+        $data = json_decode(file_get_contents("php://input"),true);
+        $result = PostLogic::create($data);
 
         if($result) {
             return response()->json($result, 201);
@@ -28,9 +29,9 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function laud($id, Request $request)
+    public function laud($id)
     {
-        $data = $request->all();
+        $data = json_decode(file_get_contents("php://input"),true);
         $data['id'] = $id;
 
         $result = LaudLogic::create($data);

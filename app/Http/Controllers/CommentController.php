@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function create(Request $request)
+    public function create()
     {
-        $result = CommentLogic::create($request->all());
+        $data   = json_decode(file_get_contents("php://input"),true);
+        $result = CommentLogic::create($data);
 
         if($result) {
             return response()->json($result, 201);
@@ -31,9 +32,9 @@ class CommentController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function reply($id, Request $request)
+    public function reply($id)
     {
-        $data = $request->all();
+        $data = json_decode(file_get_contents("php://input"),true);
         $data['id'] = $id;
         $result = ReplyLogic::create($data);
 
