@@ -145,10 +145,7 @@ class TimelineLogic
         $timeline = [];
         $validatedData = ReadForm::validate($where);
         $offset = 10;
-        $skip = 0;
-        if(isset($where['page'])) {
-            $skip = ($where['page'] -1) * $offset;
-        }
+        $skip = isset($where['page'])?($where['page'] -1) * $offset:0;
         $cursor = TimelineModel::connection()->find($validatedData)->sort(['create_at'=> -1 ])->skip($skip)->limit($offset);
 
         if(!empty($cursor)) {
