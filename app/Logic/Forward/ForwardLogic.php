@@ -10,7 +10,7 @@ class ForwardLogic
 
         switch($validatedData['type']) {
             case 2 :
-                // 分享链接
+                // 分享链接(需要从公众账号发布的内容中取数据)
                 break;
             case 3 :
                 // 转发另客圈状态
