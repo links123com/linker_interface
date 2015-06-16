@@ -8,8 +8,9 @@ class ReadForm extends Validator
     {
         $validator = Validator::make($data, [
             'user_id'         => 'required|integer|min:1',
-            'last_pull'       => 'integer|min:1431705600',
-            'page'            => 'required|integer|min:1'
+            'last_pull'       => 'required_with:toward|integer|min:1431705600',
+            'page'            => 'required_with:toward|integer|min:1',
+            'toward'          => 'string|in:up'
         ]);
 
         if($validator->fails()) {
@@ -24,8 +25,8 @@ class ReadForm extends Validator
     {
         $temp = ['user_id' => intval($data['user_id'])];
 
-        if(isset($data['last_pull'])) {
-            $temp['create_at'] = array('$gte' => intval($data['last_pull']));
+        if(isset($data['toward']) && $data['toward'] == 'up') {
+            $temp['create_at'] = array('$lte' => intval($data['last_pull']));
         }
 
         return $temp;
