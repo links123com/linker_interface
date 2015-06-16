@@ -153,23 +153,31 @@ class TimelineLogic
                 $document['_id'] = strval($document['_id']);
                 $postId = new \MongoId($document['post_id']);
                 $document['post'] = PostModel::connection()->findOne(['_id' => $postId]);
-                $document['post']['_id'] = strval($document['post']['_id']);
-                switch($document['post']['type']) {
-                    case 7 :
-                        $forwardId = new \MongoId($document['post']['forward_id']);
-                        $forward = PostModel::connection()->findOne(['_id' => $forwardId]);
-                        $forward['_id'] = strval($forward['_id']);
-                        $document['post']['forward'] = $forward;
-                        unset($document['post']['forward_id']);
-                        break;
-                    case 8 :
-                        break;
+                // 如果另客圈状态发布者删除，则所有订阅者都不显示
+                if($document['post']['status'] == 1) {
+                    $document['post']['_id'] = strval($document['post']['_id']);
+                    //@todo 评论分页
+                    $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
+                    $document['post']['comment'] = iterator_to_array($comment);
+                    unset($document['post_id']);
+                    unset($document['post']['user_id']);
+                    switch($document['post']['type']) {
+                        case 7 :
+                            // 转发另客圈状态
+                            $forwardId = new \MongoId($document['post']['forward_id']);
+                            $forward = PostModel::connection()->findOne(['_id' => $forwardId]);
+                            if($forward['status'] == 1) {
+                                // 如果最初发布者删除，或违规信息被删除，则全网都不显示
+                                $forward['_id'] = strval($forward['_id']);
+                                $document['post']['forward'] = $forward;
+                                unset($document['post']['forward_id']);
+                            }
+                            break;
+                        case 8 :
+                            // 分享链接
+                            break;
+                    }
                 }
-                //@todo 评论分页
-                $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
-                $document['post']['comment'] = iterator_to_array($comment);
-                unset($document['post_id']);
-                unset($document['post']['user_id']);
                 $timeline[] = $document;
             }
         }
