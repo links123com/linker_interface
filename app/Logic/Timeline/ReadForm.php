@@ -10,7 +10,7 @@ class ReadForm extends Validator
             'user_id'         => 'required|integer|min:1',
             'last_pull'       => 'required_with:toward|integer|min:1431705600',
             'page'            => 'integer|min:1',
-            'toward'          => 'string|in:up,down'
+            'toward'          => 'required|string|in:up,down'
         ]);
 
         if($validator->fails()) {
