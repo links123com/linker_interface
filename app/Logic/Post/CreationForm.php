@@ -9,7 +9,7 @@ class CreationForm extends Validator
         $validator = Validator::make($data, [
             'user_id'    =>'required|integer|min:1',
             'title'      =>'required_if:type,6',
-            'content'    =>'required_without_all:images,video,audio|string',
+            'content'    =>'required_without_all:images,video,audio,forward,url|string',
             'position'   =>'required|string',
             'type'       =>'required|integer',
             'device'     =>'required|string',
