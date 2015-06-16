@@ -19,6 +19,7 @@ class PostModel extends MongoModel
         'status',                // '状态是否删除|required|boolean'
         'laud',                  // '赞|array'
         'comment',               // '评论|array'
-        'forward_id'             // '转发的内容id|string|size:24'
+        'forward_id',            // '转发的内容id|string|size:24'
+        'url'                    // '分享链接的链接地址|url'
     );
 }

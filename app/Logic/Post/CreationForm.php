@@ -19,7 +19,8 @@ class CreationForm extends Validator
             'audio'      =>'required_if:type,4|string',
             'laud'       =>'array',
             'comment'    =>'array',
-            'forward_id' =>'required_if:type,7,8|string|size:24',
+            'forward_id' =>'required_if:type,7|string|size:24',
+            'url'        =>'required_if:type,8|url'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();

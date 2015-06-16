@@ -175,6 +175,18 @@ class TimelineLogic
                             break;
                         case 8 :
                             // 分享链接
+                            $link['url'] = $document['post']['url'];
+                            $content = file_get_contents($link['url']);
+                            preg_match('/<title>(.*)<\/title>/i',$content, $matches);
+                            if($matches) {
+                                $link['title'] = $matches[1];
+                            }
+                            preg_match('/<img.*src\s*=\s*[\"|\']?\s*([^>\"\'\s]*)/i',$content, $matches);
+                            if($matches) {
+                                $link['image'] = $matches[1];
+                            }
+                            $document['post']['link'] = $link;
+                            unset($document['post']['url']);
                             break;
                     }
                 }
