@@ -154,6 +154,17 @@ class TimelineLogic
                 $postId = new \MongoId($document['post_id']);
                 $document['post'] = PostModel::connection()->findOne(['_id' => $postId]);
                 $document['post']['_id'] = strval($document['post']['_id']);
+                switch($document['post']['type']) {
+                    case 7 :
+                        $forwardId = new \MongoId($document['post']['forward_id']);
+                        $forward = PostModel::connection()->findOne(['_id' => $forwardId]);
+                        $forward['_id'] = strval($forward['_id']);
+                        $document['post']['forward'] = $forward;
+                        unset($document['post']['forward_id']);
+                        break;
+                    case 8 :
+                        break;
+                }
                 //@todo 评论分页
                 $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
                 $document['post']['comment'] = iterator_to_array($comment);
