@@ -13,7 +13,6 @@ class PostLogic
         if($result) {
             // 根据客户端传递的参数确定post类型进行对应操作
             $validatedData['post_id'] = $result;
-            $validatedData['type']    = 1;
             TimelineLogic::create($validatedData);
         }
 

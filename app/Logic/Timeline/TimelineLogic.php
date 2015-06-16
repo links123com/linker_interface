@@ -23,7 +23,6 @@ class TimelineLogic
                 $data [] = [
                     'user_id'  => intval($validatedData['user_id']),
                     'post_id'  => $validatedData['post_id'],
-                    'type'     => $validatedData['type'],
                     'status'   => 0,
                     'is_at'    => 0,
                     'create_at'=>time()
@@ -33,7 +32,6 @@ class TimelineLogic
                     $data[] = [
                         'user_id'   => intval($friend['friend_id']),
                         'post_id'   => $validatedData['post_id'],
-                        'type'      => $validatedData['type'],
                         'status'    => 0,
                         'is_at'     => 0,
                         'create_at' => time()
@@ -50,7 +48,6 @@ class TimelineLogic
                     [
                         'user_id'   => intval($validatedData['user_id']),
                         'post_id'   => $validatedData['post_id'],
-                        'type'      => $validatedData['type'],
                         'status'    => 0,
                         'is_at'     => 0,
                         'create_at' => time()
@@ -62,7 +59,6 @@ class TimelineLogic
                 $data [] = [
                     'user_id'   => intval($validatedData['user_id']),
                     'post_id'   => $validatedData['post_id'],
-                    'type'      => $validatedData['type'],
                     'status'    => 0,
                     'is_at'     => 0,
                     'create_at' => time()
@@ -72,7 +68,6 @@ class TimelineLogic
                     $data[] = [
                         'user_id'   => intval($value),
                         'post_id'   => $validatedData['post_id'],
-                        'type'      => $validatedData['type'],
                         'status'    => 0,
                         'is_at'     => 0,
                         'create_at' => time()
@@ -95,7 +90,6 @@ class TimelineLogic
                 $data [] = [
                     'user_id'   => intval($validatedData['user_id']),
                     'post_id'   => $validatedData['post_id'],
-                    'type'      => $validatedData['type'],
                     'status'    => 0,
                     'is_at'     => 0,
                     'create_at' => time()
@@ -105,7 +99,6 @@ class TimelineLogic
                         $data[] = [
                             'user_id'   => intval($friend['friend_id']),
                             'post_id'   => $validatedData['post_id'],
-                            'type'      => $validatedData['type'],
                             'status'    => 0,
                             'is_at'     => 0,
                             'create_at' => time()
@@ -124,7 +117,6 @@ class TimelineLogic
                 $data [] = [
                     'user_id'   => intval($validatedData['user_id']),
                     'post_id'   => $validatedData['post_id'],
-                    'type'      => $validatedData['type'],
                     'status'    => 0,
                     'is_at'     => 0,
                     'create_at' => time()
@@ -134,7 +126,6 @@ class TimelineLogic
                     $data[] = [
                         'user_id'   => intval($value),
                         'post_id'   => $validatedData['post_id'],
-                        'type'      => $validatedData['type'],
                         'status'    => 0,
                         'is_at'     => 1,
                         'create_at' => time()
