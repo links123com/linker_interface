@@ -50,6 +50,6 @@ class FriendLogic
         $validatedData = ReadForm::validate($where);
         $cursor = FriendModel::connection()->find($validatedData);
 
-        return iterator_to_array($cursor);
+        return iterator_to_array($cursor, false);
     }
 }
