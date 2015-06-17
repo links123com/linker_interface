@@ -158,7 +158,7 @@ class TimelineLogic
                     $document['post']['_id'] = strval($document['post']['_id']);
                     //@todo 评论分页
                     $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
-                    $document['post']['comment'] = iterator_to_array($comment);
+                    $document['post']['comment'] = iterator_to_array($comment, false);
                     unset($document['post_id']);
                     unset($document['post']['user_id']);
                     switch($document['post']['type']) {
