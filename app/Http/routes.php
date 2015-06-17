@@ -29,3 +29,7 @@ $app->get('timeline/{id}/alumnus', 'App\Http\Controllers\TimelineController@read
 // 举报接口
 $app->post('/complaint', 'App\Http\Controllers\ComplaintController@create');
 $app->patch('/complaint/{id}', 'App\Http\Controllers\ComplaintController@update');
+
+// 积分接口
+$app->post('user/{id}/integral','App\Http\Controllers\IntegralController@create');
+$app->get('user/{id}/integral','App\Http\Controllers\IntegralController@read');
