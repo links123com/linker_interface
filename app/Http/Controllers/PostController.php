@@ -2,6 +2,7 @@
 
 use App\Logic\Post\LaudLogic;
 use App\Logic\Post\PostLogic;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -20,6 +21,18 @@ class PostController extends Controller
     public function delete($id)
     {
         $result = PostLogic::delete($id);
+        if($result) {
+            return response()->json($result, 200);
+        }
+
+        return response()->json(array('message'=>'Server internal error'), 500);
+    }
+
+    public function read(Request $request, $userId)
+    {
+        $data = $request->all();
+        $data['user_id'] = $userId;
+        $result = PostLogic::read($data);
         if($result) {
             return response()->json($result, 200);
         }

@@ -3,6 +3,7 @@
 // 发布另客圈状态
 $app->post('/post', 'App\Http\Controllers\PostController@create');
 $app->delete('/post/{id}', 'App\Http\Controllers\PostController@delete');
+$app->get('user/{id}/post', 'App\Http\Controllers\PostController@read');
 
 // 赞接口
 $app->post('/post/{id}/laud', 'App\Http\Controllers\PostController@laud');
