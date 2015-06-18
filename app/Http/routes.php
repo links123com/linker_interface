@@ -36,4 +36,6 @@ $app->post('user/{id}/integral','App\Http\Controllers\IntegralController@create'
 $app->get('user/{id}/integral','App\Http\Controllers\IntegralController@read');
 
 // 学校模糊匹配接口
+$app->post('school', 'App\Http\Controllers\SchoolController@create');
+$app->patch('school/{id}', 'App\Http\Controllers\SchoolController@update');
 $app->get('school', 'App\Http\Controllers\SchoolController@read');
