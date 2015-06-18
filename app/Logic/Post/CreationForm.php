@@ -20,7 +20,10 @@ class CreationForm extends Validator
             'laud'       =>'array',
             'comment'    =>'array',
             'forward_id' =>'required_if:type,7|string|size:24',
-            'url'        =>'required_if:type,8|url'
+            'url'        =>'required_if:type,8|url',
+            'high_school'    =>  'string|min:1',
+            'middle_school'  =>  'string|min:1',
+            'primary_school' =>  'string|min:1'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();
