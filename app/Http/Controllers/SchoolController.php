@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\SchoolModel;
-use Illuminate\Support\Facades\Validator;
+use App\Logic\School\SchoolLogic;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -9,19 +8,8 @@ class SchoolController extends Controller
     public function read(Request $request)
     {
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'keyword'       => 'required|string|min:1'
-        ]);
+        $result = SchoolLogic::read($data);
 
-        if($validator->fails()) {
-            return response()->json($validator->messages(), 422)->send();
-        }
-
-        $keyword = $data['keyword'];
-        $cursor = SchoolModel::connection()->find([
-            'status' => 1,
-            'name' => new \MongoRegex("/^$keyword/i")
-        ], array('name'));
-        return response()->json(iterator_to_array($cursor, false));
+        return response()->json($result, 200);
     }
 }
