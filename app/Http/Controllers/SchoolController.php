@@ -18,7 +18,10 @@ class SchoolController extends Controller
         }
 
         $keyword = $data['keyword'];
-        $cursor = SchoolModel::connection()->find(['name' => new \MongoRegex("/^$keyword/i")]);
+        $cursor = SchoolModel::connection()->find([
+            'status' => 1,
+            'name' => new \MongoRegex("/^$keyword/i")
+        ], array('name'));
         return response()->json(iterator_to_array($cursor, false));
     }
 }
