@@ -12,6 +12,8 @@ class ReadForm extends Validator
             'middle_school'   => 'required_without_all:user_id,high_school,primary_school|string|min:1',
             'primary_school'  => 'required_without_all:user_id,high_school,middle_school|string|min:1',
             'page'            => 'required|integer|min:1',
+            'last_pull'       => 'required_with:toward|integer|min:1431705600',
+            'toward'          => 'required|string|in:up,down'
         ]);
 
         if($validator->fails()) {
@@ -39,6 +41,16 @@ class ReadForm extends Validator
 
         if(isset($data['primary_school'])) {
             $temp['primary_school'] = $data['primary_school'];
+        }
+
+        if(isset($data['toward'])) {
+            if($data['toward'] == 'up') {
+                $temp['create_at'] = array('$lte' => intval($data['last_pull']));
+            }
+
+            if($data['toward'] == 'down') {
+                $temp['create_at'] = array('$gte' => intval($data['last_pull']));
+            }
         }
 
         return $temp;

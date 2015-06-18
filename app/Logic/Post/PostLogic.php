@@ -22,7 +22,7 @@ class PostLogic
 
     public static function delete($id)
     {
-        return PostModel::update(array('_id'=>new \MongoId($id)), array('status'=>0));
+        return PostModel::update(array('_id'=>new \MongoId($id)), array('status'=>0, 'update_at'=>time()));
     }
 
     public static function read($where)

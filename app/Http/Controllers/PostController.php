@@ -28,16 +28,12 @@ class PostController extends Controller
         return response()->json(array('message'=>'Server internal error'), 500);
     }
 
-    public function read(Request $request, $userId)
+    public function read(Request $request)
     {
         $data = $request->all();
-        $data['user_id'] = $userId;
         $result = PostLogic::read($data);
-        if($result) {
-            return response()->json($result, 200);
-        }
 
-        return response()->json(array('message'=>'Server internal error'), 500);
+        return response()->json($result, 200);
     }
 
     public function laud($id)

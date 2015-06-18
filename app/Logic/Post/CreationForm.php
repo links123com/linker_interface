@@ -34,9 +34,10 @@ class CreationForm extends Validator
 
     private static function switchType($data)
     {
-        $data['user_id'] = intval($data['user_id']);
-        $data['type']    = intval($data['type']);
-        $data['status']  = 1;
+        $data['user_id']   = intval($data['user_id']);
+        $data['type']      = intval($data['type']);
+        $data['status']    = 1;
+        $data['create_at'] = time();
 
         return $data;
     }

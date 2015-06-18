@@ -23,6 +23,8 @@ class PostModel extends MongoModel
         'url',                   // '分享链接的链接地址|url'
         'high_school',           // '高中|string|min:1'
         'middle_school',         // '初中|string|min:1'
-        'primary_school'         // '小学|string|min:1'
+        'primary_school',        // '小学|string|min:1'
+        'create_at',             // '创建时间|integer|size:10'
+        'update_at',             // '更新时间|integer|size:10'
     );
 }
