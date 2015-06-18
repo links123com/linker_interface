@@ -20,7 +20,6 @@ class SchoolLogic
         $keyword = strval($data['keyword']);
         if(isset($data['type'])) {
             $where = ['status' => 1, 'type'=> intval($data['type']), 'name' => new \MongoRegex("/^$keyword/i")];
-
         } else {
             $where = ['status' => 1, 'name' => new \MongoRegex("/^$keyword/i")];
         }
