@@ -34,3 +34,6 @@ $app->patch('/complaint/{id}', 'App\Http\Controllers\ComplaintController@update'
 // 积分接口
 $app->post('user/{id}/integral','App\Http\Controllers\IntegralController@create');
 $app->get('user/{id}/integral','App\Http\Controllers\IntegralController@read');
+
+// 学校模糊匹配接口
+$app->get('school', 'App\Http\Controllers\SchoolController@read');
