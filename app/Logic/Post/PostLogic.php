@@ -29,9 +29,9 @@ class PostLogic
     {
         $post = [];
         $validatedData = ReadForm::validate($where);
-        $skip = ($validatedData['page'] -1) * 10;
+        $skip = ($where['page'] -1) * 10;
         $documents = PostModel::connection()
-            ->find(['user_id' => $validatedData['user_id']])
+            ->find($validatedData)
             ->sort(['create_at'=> -1 ])
             ->skip($skip)
             ->limit(10);
