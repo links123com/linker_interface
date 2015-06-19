@@ -9,7 +9,7 @@ class SchoolLogic
     {
         $validator = Validator::make($data, [
             'keyword'       => 'required|string|min:1',
-            'type'          => 'integer|in:1,2,3'
+            'type'          => 'integer|in:1,2,3,4'
         ]);
 
         if($validator->fails()) {
@@ -33,7 +33,7 @@ class SchoolLogic
     {
         $validator = Validator::make($data, [
             'name'       => 'required|string|min:1',
-            'type'       => 'required|integer|in:1,2,3',
+            'type'       => 'required|integer|in:1,2,3,4',
         ]);
 
         if($validator->fails()) {
