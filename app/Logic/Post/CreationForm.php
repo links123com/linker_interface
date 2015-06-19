@@ -21,6 +21,7 @@ class CreationForm extends Validator
             'comment'    =>'array',
             'forward_id' =>'required_if:type,7|string|size:24',
             'url'        =>'required_if:type,8|url',
+            'university'     =>  'string|min:1',
             'high_school'    =>  'string|min:1',
             'middle_school'  =>  'string|min:1',
             'primary_school' =>  'string|min:1'

@@ -21,6 +21,7 @@ class PostModel extends MongoModel
         'comment',               // '评论|array'
         'forward_id',            // '转发的内容id|string|size:24'
         'url',                   // '分享链接的链接地址|url'
+        'university',            // '大学|string|min:1'
         'high_school',           // '高中|string|min:1'
         'middle_school',         // '初中|string|min:1'
         'primary_school',        // '小学|string|min:1'
