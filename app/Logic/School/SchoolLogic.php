@@ -52,8 +52,8 @@ class SchoolLogic
     {
         $validator = Validator::make($data, [
             'id'        => 'required|string|size:24',
-            'name'       => 'required|string|min:1',
-            'status'     => 'required|boolean',
+            'name'      => 'required_without:status|string|min:1',
+            'status'    => 'required_without:name|boolean',
         ]);
 
         if($validator->fails()) {
@@ -61,7 +61,9 @@ class SchoolLogic
             exit;
         }
         $id = new \MongoId($data['id']);
-        $data = ['name' => htmlspecialchars($data['name']), 'status'=>intval($data['status'])];
+
+        if(isset($data['name'])) {$data['name'] = htmlspecialchars($data['name']);}
+        if(isset($data['status'])) {$data['name'] = htmlspecialchars($data['status']);}
 
         return SchoolModel::update(['_id' => $id], $data);
     }
