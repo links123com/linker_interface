@@ -4,7 +4,6 @@ use App\Models\CommentModel;
 use App\Models\PostModel;
 use App\Models\TimelineModel;
 use App\Logic\Friend\FriendLogic;
-use App\Services\UserService;
 
 class TimelineLogic
 {
