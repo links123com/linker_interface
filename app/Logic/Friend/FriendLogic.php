@@ -1,6 +1,7 @@
 <?php namespace App\Logic\Friend;
 
 use App\Models\FriendModel;
+use App\Services\UserService;
 
 class FriendLogic
 {
@@ -50,6 +51,6 @@ class FriendLogic
         $validatedData = ReadForm::validate($where);
         $cursor = FriendModel::connection()->find($validatedData);
 
-        return iterator_to_array($cursor, false);
+        return UserService::iterator_to_array($cursor, 'friend_id');
     }
 }
