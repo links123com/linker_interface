@@ -8,6 +8,7 @@ class CreationForm extends Validator
     {
         $validator = Validator::make($data, [
             'user_id'       => 'required|integer|min:1',
+            'user_name'     => 'required|string|min:1',
             'ruler'         => 'required|string|size:24'
         ]);
 
@@ -23,6 +24,7 @@ class CreationForm extends Validator
     {
         return [
             'user_id'   => intval($data['user_id']),
+            'user_name' => htmlspecialchars($data['user_name']),
             'ruler'     => strval($data['ruler']),
             'create_at' => time()
         ];

@@ -7,6 +7,7 @@ class PostModel extends MongoModel
     public static $collectionName = 'post';
     public static $schema = array(
         'user_id',               // '发布状态的用户id|required|integer|min:1'
+        'user_name',             // '用户名|required|string|min:1'
         'title',                 // '话题标题|required_if:type,6'
         'content',               // '发布状态内容|required_without_all:images,video,audio|string'
         'position',              // '发布状态时的位置required|string'

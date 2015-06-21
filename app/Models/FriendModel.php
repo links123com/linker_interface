@@ -7,6 +7,8 @@ class FriendModel extends MongoModel
 
     public static $schema = [
         'user_id',         // 用户id|required|integer|min:1
+        'user_name',       // 用户名|required|string|min:1
+        'friend_name',     // 好友名|required|string|min:1
         'friend_id',       // 好友id|required|integer|min:1
         'allow_linker',    // 是否允许好友查看自己的另客圈|required|boolean
         'mark',            // 好友标记|string|size:1

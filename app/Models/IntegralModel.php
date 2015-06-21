@@ -9,6 +9,7 @@ class IntegralModel extends MongoModel
 
     public static $schema = [
         'user_id',         // 用户id|required|integer|min:1
+        'user_name',       // 用户名|required|string|min:1
         'ruler',           // 积分规则|required|string|size:24
         'create_at',       // 创建时间|required|integer
     ];
