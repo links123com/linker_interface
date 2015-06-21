@@ -160,7 +160,7 @@ class TimelineLogic
                     $comment = CommentModel::connection()->find(['post_id'=>$document['post_id']])->sort(['create_at'=>1]);
                     $document['post']['comment'] = iterator_to_array($comment, false);
                     unset($document['post_id']);
-                    unset($document['post']['user_id']);
+                    unset($document['user_id']);
                     switch($document['post']['type']) {
                         case 7 :
                             // 转发另客圈状态
@@ -190,6 +190,8 @@ class TimelineLogic
                             break;
                     }
                 }
+
+                print_r($document);exit;
                 $timeline[] = $document;
             }
         }
