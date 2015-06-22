@@ -52,4 +52,17 @@ class FriendLogic
 
         return iterator_to_array($cursor, false);
     }
+
+    public static function search($data)
+    {
+        $keyword = SearchForm::validate($data);
+
+        $member = \DB::table('member')
+            ->where('status', 1)
+            ->where('from', 2)
+            ->where('phone', $keyword)
+            ->orWhere('linker', $keyword)
+            ->first(['id', 'nickname', 'phone', 'email', 'linker', 'create_time', 'update_time']);
+        return $member;
+    }
 }

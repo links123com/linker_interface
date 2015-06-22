@@ -48,4 +48,12 @@ class FriendController extends Controller
 
         return response()->json($result, 200);
     }
+
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $result = FriendLogic::search($data);
+
+        return response()->json($result, 200);
+    }
 }

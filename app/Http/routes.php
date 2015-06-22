@@ -22,6 +22,7 @@ $app->post('friend', 'App\Http\Controllers\FriendController@create');
 $app->patch('friend/{id}', 'App\Http\Controllers\FriendController@update');
 $app->delete('friend/{id}', 'App\Http\Controllers\FriendController@delete');
 $app->get('user/{id}/friend', 'App\Http\Controllers\FriendController@read');
+$app->get('friend', 'App\Http\Controllers\FriendController@search');
 
 // 读取用户关注的和校友的另客圈状态
 $app->get('timeline/{id}', 'App\Http\Controllers\TimelineController@read');
