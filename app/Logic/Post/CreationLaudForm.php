@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Validator;
 
-class LaudForm extends Validator
+class CreationLaudForm extends Validator
 {
     public static function validate($data)
     {
@@ -21,9 +21,9 @@ class LaudForm extends Validator
 
     private static function switchType($data)
     {
-        $data['user_id']   = intval($data['user_id']);
-        $data['user_name'] = htmlspecialchars($data['user_name']);
-
-        return $data;
+        return [
+            'user_id' => intval($data['user_id']),
+            'user_name' => htmlspecialchars($data['user_name'])
+        ];
     }
 }
