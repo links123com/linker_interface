@@ -10,7 +10,7 @@ class LaudLogic
         $validatedData = LaudForm::validate($data);
         $collection = PostModel::connection();
         $where = array('_id'=> new \MongoId($data['id']));
-        $param = array('$addToSet'=>array('laud'=>$validatedData['user_id']));
+        $param = array('$addToSet'=>array('laud'=>$validatedData));
 
         try {
             $result = $collection->update($where, $param);
