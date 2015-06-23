@@ -23,7 +23,6 @@ class LaudForm extends Validator
     {
         $data['user_id']   = intval($data['user_id']);
         $data['user_name'] = htmlspecialchars($data['user_name']);
-        $data['id']        = strval($data['id']);
 
         return $data;
     }
