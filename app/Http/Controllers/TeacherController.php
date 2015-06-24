@@ -4,6 +4,12 @@ use App\Models\TeacherModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class TeacherController
+ *
+ * @package App\Http\Controllers
+ * @property integer $is_teacher 0|1
+ */
 class TeacherController extends Controller
 {
     public function read(Request $request)
