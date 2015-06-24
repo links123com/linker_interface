@@ -41,4 +41,17 @@ class TeacherController extends Controller
 
         return response()->json($teachers, 200);
     }
+
+    public function delete($id)
+    {
+        $teacher = TeacherModel::find($id);
+        $teacher->is_teacher = 0;
+        $result = $teacher->save();
+
+        if($result) {
+            return response()->json(['updatedExisting'=>true, 'n'=>1, 'err'=>null, 'ok'=>1], 200);
+        }
+
+        return response()->json(array('message'=>'Server internal error'), 500);
+    }
 }

@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeacherModel extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $table      = 'member_social';
+    public    $timestamps = false;
 
     public function member()
     {
