@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * 改为在需要用户昵称的地方对用户昵称进行冗余，这个类在代码里面没有用到
+ *
+ * Class UserService
+ * @package App\Services
+ */
 class UserService
 {
     /**
