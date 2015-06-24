@@ -25,7 +25,8 @@ class TeacherController extends Controller
             $query->where('status', '=', 1);
             $query->where('from', '=', 2);
             $query->orderBy('create_time', 'desc');
-        }]) ->where('tip_school', '=', $data['teacher_type'])
+        }]) ->where('is_teacher', '=', 1)
+            ->where('teacher_type', '=', $data['teacher_type'])
             ->get([
                 'user_id',
                 'gender',
