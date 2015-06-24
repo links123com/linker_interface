@@ -11,7 +11,7 @@ class TeacherController extends Controller
         $data = $request->all();
         $validator = Validator::make($data, [
             'page'         => 'required|integer|min:1',
-            'per_page'      => 'required|integer|min:1',
+            'per_page'     => 'required|integer|min:1',
             'teacher_type' => 'required|integer'
         ]);
 
@@ -23,6 +23,7 @@ class TeacherController extends Controller
         $teachers = TeacherModel::with(["member"=>function($query){
             $query->select(['id', 'nickname', 'phone', 'email', 'linker', 'create_time']);
             $query->where('status', '=', 1);
+            $query->where('from', '=', 2);
             $query->orderBy('create_time', 'desc');
         }]) ->where('tip_school', '=', $data['teacher_type'])
             ->get([
