@@ -40,3 +40,6 @@ $app->get('user/{id}/integral','App\Http\Controllers\IntegralController@read');
 $app->post('school', 'App\Http\Controllers\SchoolController@create');
 $app->patch('school/{id}', 'App\Http\Controllers\SchoolController@update');
 $app->get('school', 'App\Http\Controllers\SchoolController@read');
+
+// 外教相关接口
+$app->get('teacher', 'App\Http\Controllers\TeacherController@read');
