@@ -33,10 +33,14 @@ class FriendLogic
         if(isset($validatedData['is_friend']) && $validatedData['is_friend'] == 1) {
             // 查找添加该用户为好友的用户
             $user   = FriendModel::connection()->findOne(['_id'=>$id]);
-            FriendModel::update(
+            $result = FriendModel::update(
                 ['user_id'=>$user['friend_id'], 'friend_id'=>$user['user_id']],
                 ['is_friend'=>1]
             );
+
+            if(!$result['updatedExisting']) {
+                return $result;
+            }
         }
         return FriendModel::update(array('_id' => $id), $validatedData);
     }
