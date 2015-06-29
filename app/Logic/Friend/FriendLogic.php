@@ -55,6 +55,12 @@ class FriendLogic
     {
         $id = new \MongoId($id);
 
+        // 删除记录时把对应的记录也删除掉,解除好友关系是双向的
+        $user = FriendModel::connection()->findOne(['_id'=>$id]);
+        $result = FriendModel::delete(['user_id'=>$user['friend_id'], 'friend_id'=>$user['user_id']]);
+        if($result['n'] != 1) {
+            return $result;
+        }
         return FriendModel::delete(array('_id' => $id));
     }
 
