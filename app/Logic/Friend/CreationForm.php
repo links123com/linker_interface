@@ -10,7 +10,8 @@ class CreationForm extends Validator
             'user_id'       => 'required|integer|min:1',
             'user_name'     => 'required|string|min:1',
             'friend_id'     => 'required|integer|min:1',
-            'friend_name'   => 'required|string|min:1'
+            'friend_name'   => 'required|string|min:1',
+            'message'       => 'required|string|min:1'
         ]);
 
         if($validator->fails()) {
@@ -31,9 +32,10 @@ class CreationForm extends Validator
                 'friend_name'    => htmlspecialchars($data['friend_name']),
                 'allow_linker'   => 1,
                 'is_disable'     => 0,
-                'is_friend'      => 1,
+                'is_friend'      => 0,
                 'special_friend' => 0,
                 'view_linker'    => 1,
+                'type'           => 1,
                 'create_at'      =>time()
             ),
             array(
@@ -46,6 +48,8 @@ class CreationForm extends Validator
                 'is_friend'      => 0,
                 'special_friend' => 0,
                 'view_linker'    => 1,
+                'type'           => 2,
+                'message'        => htmlspecialchars($data['message']),
                 'create_at'      =>time()
             )
         );

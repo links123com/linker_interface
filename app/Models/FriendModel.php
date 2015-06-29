@@ -17,6 +17,8 @@ class FriendModel extends MongoModel
         'special_friend',  // 是否是特殊好友|required|boolean
         'background',      // 聊天背景图像|string|size:32
         'view_linker',     // 是否查看好友另客圈|required|boolean
+        'type',            // 类型(1:申请人;2:被申请人)|required|integer|in:1,2
+        'message',         // 申请好友时的附加信息|required_if:type,2|string|min:1
         'create_at',       // 好友添加时间|required|integer|size:10
         'update_at'        // 好友信息更新时间|integer|size:10
     ];
