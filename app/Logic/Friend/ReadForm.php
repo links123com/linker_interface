@@ -42,6 +42,10 @@ class ReadForm extends Validator
             $temp['view_linker'] = intval($data['view_linker']);
         }
 
+        if(isset($data['type'])) {
+            $temp['type'] = intval($data['type']);
+        }
+
         return $temp;
     }
 }
