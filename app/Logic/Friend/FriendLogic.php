@@ -18,7 +18,7 @@ class FriendLogic
     }
 
     /**
-     * 更新好像配置信息
+     * 更新好友配置信息
      *
      * @param $id object mongodb中的文档id
      * @param $data array 文档中需要更新的数据
@@ -29,6 +29,15 @@ class FriendLogic
         $id = new \MongoId($id);
         $validatedData = UpdateForm::validate($data);
 
+        // 这是确认添加好友的逻辑,验证好友的时候需要把主动添加的一方is_friend设置为1
+        if(isset($validatedData['is_friend']) && $validatedData['is_friend'] == 1) {
+            // 查找添加该用户为好友的用户
+            $user   = FriendModel::connection()->findOne(['_id'=>$id]);
+            FriendModel::update(
+                ['user_id'=>$user['friend_id'], 'friend_id'=>$user['user_id']],
+                ['is_friend'=>1]
+            );
+        }
         return FriendModel::update(array('_id' => $id), $validatedData);
     }
 
