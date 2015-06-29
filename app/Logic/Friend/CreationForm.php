@@ -36,7 +36,7 @@ class CreationForm extends Validator
                 'special_friend' => 0,
                 'view_linker'    => 1,
                 'type'           => 1,
-                'create_at'      =>time()
+                'create_at'      => time()
             ),
             array(
                 'user_id'        => intval($data['friend_id']),
@@ -50,7 +50,7 @@ class CreationForm extends Validator
                 'view_linker'    => 1,
                 'type'           => 2,
                 'message'        => htmlspecialchars($data['message']),
-                'create_at'      =>time()
+                'create_at'      => time()
             )
         );
     }
