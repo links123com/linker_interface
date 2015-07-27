@@ -49,6 +49,35 @@ class GroupController extends Controller
         return response()->json(iterator_to_array($cursor, false), 200);
     }
 
+    public function updateMember($id)
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $data['group_id'] = $id;
+        $validator = Validator::make($data, [
+            'user_id'    => 'required|integer|min:1',
+            'background' => 'string|size:32,',
+            'integral'   => 'integer|min:1'
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit();
+        }
+
+        if(isset($data['background'])) {
+            $param['background'] = htmlspecialchars($data['background']);
+        }
+
+        if(isset($data['integral'])) {
+            $param['integral'] = intval($data['integral']);
+        }
+        $param['update_at'] = time();
+        $where = ['group_id'=>$data['group_id'], 'user_id'=>$data['user_id']];
+        $result = GroupMemberModel::update($where, $param);
+
+        return response()->json($result, 200);
+    }
+
     public function delete($id)
     {
         $data['id'] = $id;
