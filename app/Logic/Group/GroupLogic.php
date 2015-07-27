@@ -18,4 +18,14 @@ class GroupLogic
 
         return $result;
     }
+
+    public static function delete($data)
+    {
+        $validatedData = DeletionForm::validate($data);
+        $where  = array('_id'=>new \MongoId($validatedData['id']));
+        $param  = array('status'=>0);
+        $result = GroupModel::update($where, $param);
+
+        return $result;
+    }
 }

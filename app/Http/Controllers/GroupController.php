@@ -29,4 +29,15 @@ class GroupController extends Controller
 
         return response()->json(array('message'=>'Server internal error'), 500);
     }
+
+    public function delete($id)
+    {
+        $data['id'] = $id;
+        $result = GroupLogic::delete($data);
+        if($result) {
+            return response()->json($result, 200);
+        }
+
+        return response()->json(array('message'=>'Server internal error'), 500);
+    }
 }

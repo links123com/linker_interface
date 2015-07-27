@@ -26,6 +26,7 @@ class CreationForm extends Validator
         $data['name']          = htmlspecialchars($data['name']);
         $data['description']   = htmlspecialchars($data['description']);
         $data['owner']         = intval($data['owner']);
+        $data['status']        = 1;
         $data['condition']     = intval($data['condition']);
         $data['create_at']     = time();
 
