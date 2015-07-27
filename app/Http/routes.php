@@ -52,3 +52,4 @@ $app->get("/group", 'App\Http\Controllers\GroupController@search');
 $app->delete("/group/{id}", 'App\Http\Controllers\GroupController@delete');
 $app->post("/group", 'App\Http\Controllers\GroupController@create');
 $app->post('/group/{id}/member', 'App\Http\Controllers\GroupController@addMember');
+$app->get('/group/{id}/member', 'App\Http\Controllers\GroupController@readMember');
