@@ -5,7 +5,7 @@ namespace App\Models;
 
 class GroupModel extends MongoModel
 {
-    public static $collectionName = 'group';
+    public static $collectionName = 'group_conflict';
 
     public static $schema = [
         'name',            // 群名称|required|string|min:3
