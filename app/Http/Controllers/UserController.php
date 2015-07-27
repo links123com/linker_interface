@@ -23,12 +23,14 @@ class UserController extends Controller
         $temp = [];
         foreach($cursor as $document) {
             $id    = new \MongoId($document['group_id']);
-            $group = GroupModel::connection()->findOne(['_id'=>$id]);
-            $group['_id']      = strval($group['_id']);
-            $document['_id']   = strval($document['_id']);
-            $document['group'] = $group;
-            unset($document['group_id']);
-            $temp[] = $document;
+            $group = GroupModel::connection()->findOne(['_id'=>$id, 'status' => 1]);
+            if ($group) {
+                $group['_id']      = strval($group['_id']);
+                $document['_id']   = strval($document['_id']);
+                $document['group'] = $group;
+                unset($document['group_id']);
+                $temp[] = $document;
+            }
         }
 
         return response()->json($temp, 200);
