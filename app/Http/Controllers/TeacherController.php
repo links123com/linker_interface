@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\GroupModel;
 use App\Models\TeacherModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,5 +57,22 @@ class TeacherController extends Controller
         }
 
         return response()->json(array('message'=>'Server internal error'), 500);
+    }
+
+    public function group($id)
+    {
+        $data = ['owner'=> intval($id)];
+        $validator = Validator::make($data, [
+            'owner'         => 'required|integer|min:1',
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit;
+        }
+
+        $cursor = GroupModel::connection()->find(['owner'=>$id]);
+
+        return json_encode(iterator_to_array($cursor, false));
     }
 }
