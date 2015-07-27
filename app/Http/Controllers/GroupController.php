@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\GroupMemberModel;
 use Illuminate\Http\Request;
 use App\Logic\Group\GroupLogic;
 use App\Logic\Group\GroupMemberLogic;
+use Illuminate\Support\Facades\Validator;
 
 class GroupController extends Controller
 {
@@ -29,6 +31,22 @@ class GroupController extends Controller
         }
 
         return response()->json(array('message'=>'Server internal error'), 500);
+    }
+
+    public function readMember($id)
+    {
+        $validator = Validator::make(['id'=>$id], [
+            'id' => 'required|string|size:24'
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit();
+        }
+
+        $cursor = GroupMemberModel::connection()->find(['group_id'=>$id]);
+
+        return response()->json(iterator_to_array($cursor, false), 200);
     }
 
     public function delete($id)
