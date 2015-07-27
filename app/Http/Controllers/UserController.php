@@ -26,10 +26,7 @@ class UserController extends Controller
             $group = GroupModel::connection()->findOne(['_id'=>$id, 'status' => 1]);
             if ($group) {
                 $group['_id']      = strval($group['_id']);
-                $document['_id']   = strval($document['_id']);
-                $document['group'] = $group;
-                unset($document['group_id']);
-                $temp[] = $document;
+                $temp[] = $group;
             }
         }
 
