@@ -1,6 +1,7 @@
 <?php namespace App\Logic\Group;
 
 use App\Models\GroupModel;
+use Illuminate\Support\Facades\Validator;
 
 class GroupLogic
 {
