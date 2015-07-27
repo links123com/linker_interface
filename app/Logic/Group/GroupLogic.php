@@ -32,7 +32,8 @@ class GroupLogic
     public static function search($data)
     {
         $validator = Validator::make($data, [
-            'keyword'       => 'required|string|min:1'
+            'keyword'       => 'required|string|min:1',
+            'page'          => 'integer|min:1'
         ]);
 
         if($validator->fails()) {
@@ -43,7 +44,9 @@ class GroupLogic
         $keyword = strval($data['keyword']);
         $where = ['status' => 1, 'name' => new \MongoRegex("/^$keyword/i")];
 
-        $cursor = GroupModel::connection()->find($where);
+        $offset = 10;
+        $skip = isset($validator['page'])?($where['$validator'] -1) * $offset:0;
+        $cursor = GroupModel::connection()->find($where)->sort(['create_at'=> -1 ])->skip($skip)->limit($offset);
 
         return iterator_to_array($cursor, false);
     }
