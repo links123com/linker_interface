@@ -42,5 +42,12 @@ $app->put('school/{id}', 'App\Http\Controllers\SchoolController@update');
 $app->get('school', 'App\Http\Controllers\SchoolController@read');
 
 // 外教相关接口
-$app->get('teacher', 'App\Http\Controllers\TeacherController@read');
+$app->get('/teacher', 'App\Http\Controllers\TeacherController@read');
+$app->get('/teacher/{id}/group', 'App\Http\Controllers\TeacherController@group');
 $app->delete('teacher/{id}', 'App\Http\Controllers\TeacherController@delete');
+
+// 群相关接口
+$app->get("/user/{id}/group", 'App\Http\Controllers\UserController@group');
+$app->get("/group", 'App\Http\Controllers\GroupController@search');
+$app->delete("/group/{id}", 'App\Http\Controllers\GroupController@delete');
+$app->create("/group", 'App\Http\Controllers\GroupController@create');
