@@ -28,4 +28,23 @@ class GroupLogic
 
         return $result;
     }
+
+    public static function search($data)
+    {
+        $validator = Validator::make($data, [
+            'keyword'       => 'required|string|min:1'
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit;
+        }
+
+        $keyword = strval($data['keyword']);
+        $where = ['status' => 1, 'name' => new \MongoRegex("/^$keyword/i")];
+
+        $cursor = GroupModel::connection()->find($where);
+
+        return iterator_to_array($cursor, false);
+    }
 }

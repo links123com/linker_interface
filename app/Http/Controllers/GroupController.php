@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Logic\Group\GroupLogic;
 use App\Logic\Group\GroupMemberLogic;
 
@@ -39,5 +40,13 @@ class GroupController extends Controller
         }
 
         return response()->json(array('message'=>'Server internal error'), 500);
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $result = GroupLogic::search($data);
+
+        return response()->json($result, 200);
     }
 }
