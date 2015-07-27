@@ -22,10 +22,10 @@ class UserController extends Controller
 
         $temp = [];
         foreach($cursor as $document) {
-            $id = new \MongoId($document['group_id']);
+            $id    = new \MongoId($document['group_id']);
             $group = GroupModel::connection()->findOne(['_id'=>$id]);
-            $group['_id'] = strval($group['_id']);
-            $document['_id'] = strval($document['_id']);
+            $group['_id']      = strval($group['_id']);
+            $document['_id']   = strval($document['_id']);
             $document['group'] = $group;
             unset($document['group_id']);
             $temp[] = $document;
