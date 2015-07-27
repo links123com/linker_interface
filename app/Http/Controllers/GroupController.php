@@ -1,11 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 use App\Logic\Group\GroupLogic;
-use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function create(Request $request)
+    public function create()
     {
         $data   = json_decode(file_get_contents("php://input"),true);
         $result = GroupLogic::create($data);
