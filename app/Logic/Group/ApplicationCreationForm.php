@@ -2,15 +2,14 @@
 
 use Illuminate\Support\Facades\Validator;
 
-class MemberCreationForm extends Validator
+class ApplicationCreationForm extends Validator
 {
     public static function validate($data)
     {
         $validator = Validator::make($data, [
             'user_id'     => 'required|integer|min:1',
             'group_id'    => 'required|string|size:24',
-            'condition'   => 'required|integer|in:1,2,3',
-            'description' => 'required_if:condition,3|string|min:1'
+            'description' => 'required|string|min:1'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();
@@ -22,6 +21,9 @@ class MemberCreationForm extends Validator
     private static function switchType($data)
     {
         $data['user_id']       = intval($data['user_id']);
+        $data['group_id']      = strval($data['group_id']);
+        $data['description']   = htmlspecialchars($data['description']);
+        $data['status']        = 0;
         $data['create_at']     = time();
 
         return $data;
