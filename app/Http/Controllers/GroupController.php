@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\GroupApplicationModel;
 use App\Models\GroupMemberModel;
 use Illuminate\Http\Request;
 use App\Logic\Group\GroupLogic;
@@ -95,5 +96,17 @@ class GroupController extends Controller
         $result = GroupLogic::search($data);
 
         return response()->json($result, 200);
+    }
+
+    public function apply($id)
+    {
+        $cursor = GroupApplicationModel::connection()->find(
+            [
+                'group_id'=>$id,
+                'status'=> 0
+            ])
+            ->sort(['create_at'=> -1 ]);
+
+        return response()->json(iterator_to_array($cursor, false));
     }
 }
