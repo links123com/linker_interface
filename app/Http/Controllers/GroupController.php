@@ -109,4 +109,36 @@ class GroupController extends Controller
 
         return response()->json(iterator_to_array($cursor, false));
     }
+
+    public function updateApplication($id)
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $data['id'] = $id;
+        $validator = Validator::make($data, [
+            'id'         => 'required|string|size:24',
+            'user_id'    => 'required|integer|min:1',
+            'admin_id'   => 'required|integer|min:1',
+            'status'     => 'integer|min:1'
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit();
+        }
+        $param['admin_id'] = $data['admin_id'];
+        $param['status']   = 1;
+        $param['update_at'] = time();
+        $where = ['_id'=>new \MongoId($id)];
+        $result = GroupMemberModel::update($where, $param);
+
+        if($result) {
+            $result = GroupMemberLogic::create([
+                'user_id'   => intval($data['user_id']),
+                'group_id'  => $data['id'],
+                'condition' => 1
+            ]);
+        }
+
+        return response()->json($result, 200);
+    }
 }

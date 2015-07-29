@@ -55,3 +55,4 @@ $app->post('/group/{id}/member', 'App\Http\Controllers\GroupController@addMember
 $app->get('/group/{id}/member', 'App\Http\Controllers\GroupController@readMember');
 $app->put('/group/{id}/member', 'App\Http\Controllers\GroupController@updateMember');
 $app->get('/group/{id}/application', 'App\Http\Controllers\GroupController@apply');
+$app->put('/group/{id}/application', 'App\Http\Controllers\GroupController@updateApplication');
