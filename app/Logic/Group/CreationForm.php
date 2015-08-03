@@ -12,7 +12,8 @@ class CreationForm extends Validator
             'notify'         => 'string|max:120',
             'owner'          => 'required|integer|min:1',
             'administrator'  => 'array',
-            'condition'      => 'required|integer|in:1,2,3'
+            'condition'      => 'required|integer|in:1,2,3',
+            'recommendation' => 'required|boolean'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();
@@ -23,12 +24,13 @@ class CreationForm extends Validator
 
     private static function switchType($data)
     {
-        $data['name']          = htmlspecialchars($data['name']);
-        $data['description']   = htmlspecialchars($data['description']);
-        $data['owner']         = intval($data['owner']);
-        $data['status']        = 1;
-        $data['condition']     = intval($data['condition']);
-        $data['create_at']     = time();
+        $data['name']           = htmlspecialchars($data['name']);
+        $data['description']    = htmlspecialchars($data['description']);
+        $data['owner']          = intval($data['owner']);
+        $data['status']         = 1;
+        $data['condition']      = intval($data['condition']);
+        $data['recommendation'] = intval($data['recommendation']);
+        $data['create_at']      = time();
 
         return $data;
     }
