@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupMemberModel;
 use App\Models\GroupModel;
+use App\Models\MemberModel;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -31,5 +32,21 @@ class UserController extends Controller
         }
 
         return response()->json($temp, 200);
+    }
+
+    public function session($id)
+    {
+        $validator = Validator::make(['user_id'=>$id], [
+            'user_id' => 'required|integer|min:1'
+        ]);
+
+        if($validator->fails()) {
+            response()->json($validator->messages(), 422)->send();
+            exit();
+        }
+
+        $session = MemberModel::find($id, ['session']);
+
+        return response()->json(['session'=>$session], 200);
     }
 }
