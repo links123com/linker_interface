@@ -14,7 +14,7 @@ class GroupLogic
         // todo:软事物处理
         if($result) {
             // 把群主添加到群中
-            GroupMemberLogic::create(['user_id'=>$data['owner'], 'group_id'=>strval($result)]);
+            GroupMemberLogic::create(['user_id'=>$data['owner'], 'group_id'=>strval($result), 'condition'=>1]);
         }
 
         return $result;
