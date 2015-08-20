@@ -13,7 +13,8 @@ class CreationForm extends Validator
             'owner'          => 'required|integer|min:1',
             'administrator'  => 'array',
             'condition'      => 'required|integer|in:1,2,3',
-            'recommendation' => 'required|boolean'
+            'recommendation' => 'required|boolean',
+            'avatar'         => 'string|size:32'
         ]);
         if($validator->fails()) {
             response()->json($validator->messages(), 422)->send();

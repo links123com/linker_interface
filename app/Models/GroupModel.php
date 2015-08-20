@@ -16,6 +16,9 @@ class GroupModel extends MongoModel
         'condition',       // 加群条件|required|in:1,2,3(1：允许任何人加群；2：不允许任何人加群；3：需要通过验证才能加群)
         'status',          // 群状态|required|bool
         'recommendation',  // 是否为推荐群|required|boolean(0:不是;1:是)
+        'avatar',          // 群头像|string|size:32,
+        'level',           // 群级别|integer|min:1
+        'count',           // 群成员总数
         'create_at',       // 创建时间|required|integer
         'update_at'        // 更新时间|integer
     ];
