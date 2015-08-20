@@ -52,7 +52,7 @@ class GroupLogic
             $where = ['status' => 1, 'recommendation' => intval($data['recommendation'])];
         }
         $offset = 10;
-        $skip = isset($validator['page'])?($where['$validator'] -1) * $offset:0;
+        $skip = isset($data['page'])?($where['$validator'] -1) * $offset:0;
         $cursor = GroupModel::connection()->find($where)->sort(['create_at'=> -1 ])->skip($skip)->limit($offset);
 
         return iterator_to_array($cursor, false);
