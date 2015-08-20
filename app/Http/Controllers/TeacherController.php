@@ -71,7 +71,7 @@ class TeacherController extends Controller
             exit;
         }
 
-        $cursor = GroupModel::connection()->find(['owner'=>$id]);
+        $cursor = GroupModel::connection()->find(['owner'=> $data['owner']]);
 
         return json_encode(iterator_to_array($cursor, false));
     }
